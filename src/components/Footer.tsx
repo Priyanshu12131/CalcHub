@@ -29,15 +29,15 @@ export function Footer() {
               <li><Link to="/" className="hover:text-primary transition-colors">Home</Link></li>
               <li><Link to="/about" className="hover:text-primary transition-colors">About Us</Link></li>
               <li><Link to="/contact" className="hover:text-primary transition-colors">Contact Us</Link></li>
-              <li><Link to="/calculators" className="hover:text-primary transition-colors">All Calculators</Link></li>
+              <li><Link to="/dashboard" className="hover:text-primary transition-colors">Analytics</Link></li>
             </ul>
           </div>
 
-          {/* Popular Categories */}
+          {/* Categories */}
           <div>
-            <h4 className="font-semibold text-sm mb-3">Popular Categories</h4>
+            <h4 className="font-semibold text-sm mb-3">Categories</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              {categories.slice(0, 5).map((cat) => (
+              {categories.map((cat) => (
                 <li key={cat.id}>
                   <Link to={`/category/${cat.id}`} className="hover:text-primary transition-colors">
                     {cat.name}
@@ -48,33 +48,8 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Calculator Sections by Category */}
-        <div className="mt-10 pt-10 border-t">
-          <h3 className="font-semibold text-base mb-6">Calculators by Category</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {categories.map((cat) => (
-              <div key={cat.id}>
-                <Link to={`/category/${cat.id}`}>
-                  <h4 className="font-semibold text-sm mb-3 text-primary hover:text-primary/80 transition-colors">
-                    {cat.name}
-                  </h4>
-                </Link>
-                <ul className="space-y-1 text-xs text-muted-foreground">
-                  {cat.calculators.map((calc) => (
-                    <li key={calc.id}>
-                      <Link to={`/calculators/${calc.id}`} className="hover:text-primary transition-colors line-clamp-1">
-                        {calc.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-
         <div className="mt-10 pt-6 border-t text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} CalcHub. All calculations are for informational purposes only.
+          © 2026 CalcHub. All calculations are for informational purposes only.
         </div>
       </div>
     </footer>

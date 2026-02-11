@@ -91,7 +91,7 @@ const Index = () => {
       </section>
 
       {/* ===== POPULAR TOOLS ===== */}
-      <section className="container -mt-16 relative z-20 pb-16">
+      <section className="container -mt-16 relative z-0 pb-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {featured.map((tool) => (
             <motion.div

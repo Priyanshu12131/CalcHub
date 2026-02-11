@@ -1,39 +1,5 @@
-import { Home, IndianRupee, Percent } from "lucide-react";
-
-/* ---------- TYPES ---------- */
-
-export type InputField = {
-  id: string;
-  label: string;
-  min: number;
-  max: number;
-  step: number;
-  default: number;
-  suffix?: string;
-};
-
-export type CalculatorLogic = {
-  inputs: InputField[];
-  calculate: (values: Record<string, number>) => Record<string, number | string>;
-};
-
-export type CalculatorMeta = {
-  id: string;
-  name: string;
-  description: string;
-};
-
-export type Category = {
-  id: string;
-  name: string;
-  description: string;
-  icon: any;
-  calculators: CalculatorMeta[];
-};
-
-/* ---------- CALCULATION LOGIC ---------- */
-
-export const calculatorLogic: Record<string, CalculatorLogic> = {
+const Home = null; const IndianRupee = null; const Percent = null;
+const calculatorLogic = {
   mortgage: {
     inputs: [
       { id: "amount", label: "Property Price", min: 500000, max: 20000000, step: 50000, default: 3000000, suffix: "₹" },
@@ -1464,147 +1430,16 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
     },
   },
 
-  "degree-progress-calculator": {
-    inputs: [
-      { id: "earnedEcts", label: "ECTS Credits Earned", min: 0, max: 600, step: 5, default: 90 },
-      { id: "totalEcts", label: "Total Degree ECTS (e.g., 180 Bachelor, 300 Master)", min: 60, max: 600, step: 30, default: 180 },
-    ],
-    calculate: ({ earnedEcts, totalEcts }) => {
-      const earned = Number(earnedEcts || 0);
-      const total = Number(totalEcts || 180);
-      const progress = total > 0 ? (earned / total) * 100 : 0;
-      const remaining = Math.max(0, total - earned);
-      return { "Progress (%)": parseFloat(progress.toFixed(1)), "ECTS Earned": earned, "ECTS Remaining": remaining, "Degree Type": total === 180 ? "Bachelor" : total === 300 ? "Master" : "Custom" };
-    },
-  },
-
   "running-record": {
     inputs: [
-      { id: "totalWords", label: "Total Words in Passage", min: 1, max: 10000, step: 1, default: 120 },
-      { id: "errors", label: "Errors Made", min: 0, max: 10000, step: 1, default: 6 },
-      { id: "selfCorrections", label: "Self-Corrections", min: 0, max: 1000, step: 1, default: 2 },
-      { id: "timeMinutes", label: "Time to Read (minutes)", min: 0.5, max: 60, step: 0.5, default: 3.5 },
-      { id: "countSelfCorrAsErrors", label: "Count Self-Corrections as Errors? (1=yes,0=no)", min: 0, max: 1, step: 1, default: 0 },
+      { id: "totalWords", label: "Total Words", min: 1, max: 10000, step: 1, default: 200 },
+      { id: "errors", label: "Errors Made", min: 0, max: 10000, step: 1, default: 5 },
     ],
-    calculate: ({ totalWords, errors, selfCorrections, timeMinutes, countSelfCorrAsErrors }) => {
-      const t = Number(totalWords || 0);
-      const e = Number(errors || 0);
-      const sc = Number(selfCorrections || 0);
-      const time = Number(timeMinutes || 1);
-      const countSC = Number(countSelfCorrAsErrors || 0);
-      
-      const effectiveErrors = countSC === 1 ? e + sc : e;
-      const accuracy = t > 0 ? parseFloat((((t - effectiveErrors) / t) * 100).toFixed(2)) : 0;
-      const errorRate = e > 0 ? `1:${Math.round(t / e)}` : "0:0";
-      const scrRate = sc > 0 ? parseFloat((((e + sc) / sc)).toFixed(2)) : 0;
-      const wcpm = time > 0 ? parseFloat((((t - effectiveErrors) / time)).toFixed(0)) : 0;
-      
-      return { 
-        "Accuracy (%)": accuracy, 
-        "Error Rate (1:x)": errorRate, 
-        "Self-Correction Rate": scrRate, 
-        "Words Correct Per Minute": wcpm 
-      };
-    },
-  },
-
-  "a-level-ucas-points": {
-    inputs: [
-      { id: "grade1", label: "Subject 1 Grade (A*=56,A=48,B=40,C=32,D=24,E=16)", min: 16, max: 56, step: 8, default: 56 },
-      { id: "grade2", label: "Subject 2 Grade", min: 16, max: 56, step: 8, default: 48 },
-      { id: "grade3", label: "Subject 3 Grade", min: 16, max: 56, step: 8, default: 40 },
-      { id: "grade4", label: "Subject 4 Grade (optional)", min: 0, max: 56, step: 8, default: 0 },
-      { id: "grade5", label: "Subject 5 Grade (optional)", min: 0, max: 56, step: 8, default: 0 },
-    ],
-    calculate: ({ grade1, grade2, grade3, grade4, grade5 }) => {
-      const g1 = Number(grade1 || 0);
-      const g2 = Number(grade2 || 0);
-      const g3 = Number(grade3 || 0);
-      const g4 = Number(grade4 || 0);
-      const g5 = Number(grade5 || 0);
-      const total = g1 + g2 + g3 + g4 + g5;
-      const numSubjects = [g1, g2, g3, g4, g5].filter(g => g > 0).length;
-      return { "Total UCAS Points": total, "Number of A-Levels": numSubjects, "Average Per Subject": numSubjects > 0 ? Math.round(total / numSubjects) : 0 };
-    },
-  },
-
-  "university-grade-percentage": {
-    inputs: [
-      { id: "modules", label: "Number of Modules (1-10)", min: 1, max: 10, step: 1, default: 4 },
-      { id: "m1", label: "Module 1 Grade (%)", min: 0, max: 100, step: 0.1, default: 78 },
-      { id: "c1", label: "Module 1 Credits (ECTS)", min: 1, max: 60, step: 1, default: 5 },
-      { id: "m2", label: "Module 2 Grade (%)", min: 0, max: 100, step: 0.1, default: 85 },
-      { id: "c2", label: "Module 2 Credits", min: 1, max: 60, step: 1, default: 10 },
-      { id: "m3", label: "Module 3 Grade (%)", min: 0, max: 100, step: 0.1, default: 82 },
-      { id: "c3", label: "Module 3 Credits", min: 1, max: 60, step: 1, default: 8 },
-      { id: "m4", label: "Module 4 Grade (%)", min: 0, max: 100, step: 0.1, default: 88 },
-      { id: "c4", label: "Module 4 Credits", min: 1, max: 60, step: 1, default: 5 },
-      { id: "m5", label: "Module 5 Grade (%)", min: 0, max: 100, step: 0.1, default: 0 },
-      { id: "c5", label: "Module 5 Credits", min: 1, max: 60, step: 1, default: 5 },
-      { id: "m6", label: "Module 6 Grade (%)", min: 0, max: 100, step: 0.1, default: 0 },
-      { id: "c6", label: "Module 6 Credits", min: 1, max: 60, step: 1, default: 5 },
-      { id: "m7", label: "Module 7 Grade (%)", min: 0, max: 100, step: 0.1, default: 0 },
-      { id: "c7", label: "Module 7 Credits", min: 1, max: 60, step: 1, default: 5 },
-      { id: "m8", label: "Module 8 Grade (%)", min: 0, max: 100, step: 0.1, default: 0 },
-      { id: "c8", label: "Module 8 Credits", min: 1, max: 60, step: 1, default: 5 },
-      { id: "m9", label: "Module 9 Grade (%)", min: 0, max: 100, step: 0.1, default: 0 },
-      { id: "c9", label: "Module 9 Credits", min: 1, max: 60, step: 1, default: 5 },
-      { id: "m10", label: "Module 10 Grade (%)", min: 0, max: 100, step: 0.1, default: 0 },
-      { id: "c10", label: "Module 10 Credits", min: 1, max: 60, step: 1, default: 5 },
-    ],
-    calculate: (vals) => {
-      const numModules = Math.round(Number(vals.modules || 4));
-      let totalWeightedGrade = 0;
-      let totalCredits = 0;
-      for (let i = 1; i <= numModules; i++) {
-        const grade = Number(vals[`m${i}`] || 0);
-        const credits = Number(vals[`c${i}`] || 5);
-        totalWeightedGrade += grade * credits;
-        totalCredits += credits;
-      }
-      const overallPercentage = totalCredits > 0 ? parseFloat((totalWeightedGrade / totalCredits).toFixed(2)) : 0;
-      return { "Overall Weighted Grade (%)": overallPercentage, "Total Credits": totalCredits };
-    },
-  },
-
-  "university-qca": {
-    inputs: [
-      { id: "modules", label: "Number of Modules (1-10)", min: 1, max: 10, step: 1, default: 4 },
-      { id: "g1", label: "Module 1 Grade (A1=4.0,A2=3.6,B1=3.2,B2=2.8,C=2.0)", min: 2.0, max: 4.0, step: 0.2, default: 3.6 },
-      { id: "c1", label: "Module 1 Credits (ECTS)", min: 1, max: 60, step: 1, default: 5 },
-      { id: "g2", label: "Module 2 Grade", min: 2.0, max: 4.0, step: 0.2, default: 3.2 },
-      { id: "c2", label: "Module 2 Credits", min: 1, max: 60, step: 1, default: 10 },
-      { id: "g3", label: "Module 3 Grade", min: 2.0, max: 4.0, step: 0.2, default: 3.6 },
-      { id: "c3", label: "Module 3 Credits", min: 1, max: 60, step: 1, default: 8 },
-      { id: "g4", label: "Module 4 Grade", min: 2.0, max: 4.0, step: 0.2, default: 2.8 },
-      { id: "c4", label: "Module 4 Credits", min: 1, max: 60, step: 1, default: 5 },
-      { id: "g5", label: "Module 5 Grade", min: 0, max: 4.0, step: 0.2, default: 0 },
-      { id: "c5", label: "Module 5 Credits", min: 1, max: 60, step: 1, default: 5 },
-      { id: "g6", label: "Module 6 Grade", min: 0, max: 4.0, step: 0.2, default: 0 },
-      { id: "c6", label: "Module 6 Credits", min: 1, max: 60, step: 1, default: 5 },
-      { id: "g7", label: "Module 7 Grade", min: 0, max: 4.0, step: 0.2, default: 0 },
-      { id: "c7", label: "Module 7 Credits", min: 1, max: 60, step: 1, default: 5 },
-      { id: "g8", label: "Module 8 Grade", min: 0, max: 4.0, step: 0.2, default: 0 },
-      { id: "c8", label: "Module 8 Credits", min: 1, max: 60, step: 1, default: 5 },
-      { id: "g9", label: "Module 9 Grade", min: 0, max: 4.0, step: 0.2, default: 0 },
-      { id: "c9", label: "Module 9 Credits", min: 1, max: 60, step: 1, default: 5 },
-      { id: "g10", label: "Module 10 Grade", min: 0, max: 4.0, step: 0.2, default: 0 },
-      { id: "c10", label: "Module 10 Credits", min: 1, max: 60, step: 1, default: 5 },
-    ],
-    calculate: (vals) => {
-      const numModules = Math.round(Number(vals.modules || 4));
-      let totalQuality = 0;
-      let totalCredits = 0;
-      for (let i = 1; i <= numModules; i++) {
-        const grade = Number(vals[`g${i}`] || 0);
-        const credits = Number(vals[`c${i}`] || 5);
-        if (grade > 0) {
-          totalQuality += grade * credits;
-          totalCredits += credits;
-        }
-      }
-      const qca = totalCredits > 0 ? parseFloat((totalQuality / totalCredits).toFixed(3)) : 0;
-      return { "QCA": qca, "Total Credits": totalCredits };
+    calculate: ({ totalWords, errors }) => {
+      const t = Number(totalWords||0);
+      const e = Number(errors||0);
+      const accuracy = t>0?parseFloat((((t - e) / t) * 100).toFixed(2)):0;
+      return { "Accuracy (%)": accuracy };
     },
   },
 
@@ -1880,237 +1715,68 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
     },
   },
 
-  "financial-personality": {
+  "casio-basic": {
     inputs: [
-      { id: "age", label: "Age (years)", min: 18, max: 80, step: 1, default: 35 },
-      { id: "income", label: "Annual Net Income (£)", min: 10000, max: 500000, step: 5000, default: 42000 },
-      { id: "savingsPercent", label: "Monthly Savings (% of net)", min: 0, max: 100, step: 1, default: 10 },
-      { id: "debt", label: "Outstanding Debt (£)", min: 0, max: 500000, step: 5000, default: 4000 },
-      { id: "emergencyFund", label: "Emergency Fund (1=None,2=<3m,3=3-6m,4=6+m)", min: 1, max: 4, step: 1, default: 3 },
-      { id: "horizon", label: "Investment Horizon (1=Short,2=Medium,3=Long)", min: 1, max: 3, step: 1, default: 2 },
-      { id: "riskTolerance", label: "Risk Tolerance (1=VeryLow,2=Low,3=Moderate,4=High)", min: 1, max: 4, step: 1, default: 3 },
-      { id: "priority", label: "Priority (1=Debt,2=Emergency,3=Investments,4=Retirement)", min: 1, max: 4, step: 1, default: 3 },
+      { id: "num1", label: "Number 1", min: -999999, max: 999999, step: 1, default: 0 },
+      { id: "num2", label: "Number 2", min: -999999, max: 999999, step: 1, default: 0 },
     ],
-    calculate: ({ age, income, savingsPercent, debt, emergencyFund, horizon, riskTolerance, priority }) => {
-      const monthlyIncome = income / 12;
-      const monthlySavings = monthlyIncome * (savingsPercent / 100);
-      const yearsToRetirement = Math.max(5, 65 - age);
-      const emergencyFundTargets = ["None", "Less than 3 months", "3-6 months", "6+ months"];
-      const horizonLabels = ["Short (0-3yr)", "Medium (3-7yr)", "Long (7+yr)"];
-      const riskLabels = ["Very Low", "Low", "Moderate", "High"];
-      const priorityLabels = ["Pay down debt", "Build emergency fund", "Grow investments", "Plan retirement"];
-      
-      let profile = "Balanced Growth";
-      let actionPlan = "";
-      
-      if (priority === 1) {
-        profile = "Debt Elimination Focus";
-        actionPlan = "Focus on paying down £" + Math.round(debt) + " debt. Consider increasing savings to accelerate payoff.";
-      } else if (priority === 2) {
-        profile = "Security-First Approach";
-        actionPlan = "Build 3-6 months emergency fund first (£" + Math.round(monthlyIncome * 4.5) + "). This cushions financial shocks.";
-      } else if (priority === 3) {
-        profile = "Growth Optimizer";
-        actionPlan = "Diversify investments across bonds, stocks, and funds based on your medium risk tolerance.";
-      } else {
-        profile = "Long-Term Retirement Planner";
-        actionPlan = "Maximize pension contributions. You have " + yearsToRetirement + " years to retirement.";
-      }
-      
-      const recommendation = riskTolerance <= 2 ? "Conservative: 70% bonds, 30% stocks" : riskTolerance === 3 ? "Balanced: 50% bonds, 50% stocks" : "Aggressive: 20% bonds, 80% stocks/growth";
-      
-      return {
-        "Profile": profile,
-        "Monthly Savings": Math.round(monthlySavings),
-        "Priority": priorityLabels[priority - 1],
-        "Risk Level": riskLabels[riskTolerance - 1],
-        "Time Horizon": horizonLabels[horizon - 1],
-        "Emergency Fund Status": emergencyFundTargets[emergencyFund - 1],
-        "Action Plan": actionPlan,
-        "Recommended Allocation": recommendation,
-      };
-    },
-  },
-
-  "loan-repayment": {
-    inputs: [
-      { id: "amount", label: "Loan Amount (€)", min: 1000, max: 1000000, step: 1000, default: 15000 },
-      { id: "rate", label: "Annual Interest Rate (%)", min: 0.1, max: 25, step: 0.1, default: 7.5 },
-      { id: "years", label: "Loan Tenure (Years)", min: 1, max: 40, step: 1, default: 5 },
-    ],
-    calculate: ({ amount, rate, years }) => {
-      const monthlyRate = rate / 100 / 12;
-      const numPayments = years * 12;
-      let monthlyPayment = 0;
-      
-      if (monthlyRate === 0) {
-        monthlyPayment = amount / numPayments;
-      } else {
-        monthlyPayment = (amount * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
-      }
-      
-      const totalPayment = monthlyPayment * numPayments;
-      const totalInterest = totalPayment - amount;
-      
-      return {
-        "Loan Amount": Math.round(amount),
-        "Monthly Payment": Math.round(monthlyPayment),
-        "Total Payments": Math.round(totalPayment),
-        "Total Interest": Math.round(totalInterest),
-        "Years": years,
-      };
-    },
-  },
-
-  "casio-fx83gtx": {
-    inputs: [
-      { id: "num1", label: "First Number", min: -999999, max: 999999, step: 0.01, default: 45 },
-      { id: "function", label: "Function (1=sin,2=cos,3=tan,4=log,5=ln,6=sqrt,7=x²,8=x³,9=1/x,10=x^y)", min: 1, max: 10, step: 1, default: 1 },
-      { id: "num2", label: "Second Number (for x^y)", min: -100, max: 100, step: 0.1, default: 2 },
-      { id: "angleMode", label: "Angle Mode (0=Deg,1=Rad)", min: 0, max: 1, step: 1, default: 0 },
-    ],
-    calculate: ({ num1, function: func, num2, angleMode }) => {
-      const toRad = (deg) => (deg * Math.PI) / 180;
-      const toDeg = (rad) => (rad * 180) / Math.PI;
-      let result = 0;
-      let display = num1.toString();
-      
-      switch(func) {
-        case 1: // sin
-          result = angleMode === 0 ? Math.sin(toRad(num1)) : Math.sin(num1);
-          display = `sin(${num1}${angleMode === 0 ? '°' : 'rad'}) = ${result.toFixed(8)}`;
-          break;
-        case 2: // cos
-          result = angleMode === 0 ? Math.cos(toRad(num1)) : Math.cos(num1);
-          display = `cos(${num1}${angleMode === 0 ? '°' : 'rad'}) = ${result.toFixed(8)}`;
-          break;
-        case 3: // tan
-          result = angleMode === 0 ? Math.tan(toRad(num1)) : Math.tan(num1);
-          display = `tan(${num1}${angleMode === 0 ? '°' : 'rad'}) = ${result.toFixed(8)}`;
-          break;
-        case 4: // log base 10
-          result = Math.log10(Math.abs(num1));
-          display = `log(${num1}) = ${result.toFixed(6)}`;
-          break;
-        case 5: // ln
-          result = Math.log(Math.abs(num1));
-          display = `ln(${num1}) = ${result.toFixed(6)}`;
-          break;
-        case 6: // sqrt
-          result = Math.sqrt(Math.abs(num1));
-          display = `√${num1} = ${result.toFixed(6)}`;
-          break;
-        case 7: // x²
-          result = num1 * num1;
-          display = `${num1}² = ${result.toFixed(6)}`;
-          break;
-        case 8: // x³
-          result = num1 * num1 * num1;
-          display = `${num1}³ = ${result.toFixed(6)}`;
-          break;
-        case 9: // 1/x
-          result = num1 !== 0 ? 1 / num1 : 0;
-          display = `1/${num1} = ${result.toFixed(8)}`;
-          break;
-        case 10: // x^y
-          result = Math.pow(num1, num2);
-          display = `${num1}^${num2} = ${result.toFixed(6)}`;
-          break;
-        default:
-          result = 0;
-      }
-      
-      return {
-        "Display": display,
-        "Result": parseFloat(result.toFixed(8)),
-      };
+    calculate: ({ num1, num2 }) => {
+      return { "Sum": num1 + num2, "Difference": num1 - num2, "Product": num1 * num2, "Quotient": num2 !== 0 ? parseFloat((num1 / num2).toFixed(4)) : 0 };
     },
   },
 
   "casio-watch": {
     inputs: [
-      { id: "num1", label: "First Number", min: -99999, max: 99999, step: 0.01, default: 99 },
-      { id: "operator", label: "Operation (1=+,2=-,3=×,4=÷)", min: 1, max: 4, step: 1, default: 3 },
-      { id: "num2", label: "Second Number", min: -99999, max: 99999, step: 0.01, default: 11 },
+      { id: "num", label: "Number", min: -99999, max: 99999, step: 1, default: 0 },
     ],
-    calculate: ({ num1, operator, num2 }) => {
-      let result = 0;
-      let expr = "";
-      
-      switch(operator) {
-        case 1: // +
-          result = num1 + num2;
-          expr = `${num1} + ${num2}`;
-          break;
-        case 2: // -
-          result = num1 - num2;
-          expr = `${num1} - ${num2}`;
-          break;
-        case 3: // ×
-          result = num1 * num2;
-          expr = `${num1} × ${num2}`;
-          break;
-        case 4: // ÷
-          result = num2 !== 0 ? num1 / num2 : 0;
-          expr = `${num1} ÷ ${num2}`;
-          break;
-      }
-      
-      return {
-        "Expression": expr,
-        "Result": parseFloat(result.toFixed(8)),
-      };
+    calculate: ({ num }) => {
+      return { "Value": num, "Square": num * num, "Square Root": parseFloat(Math.sqrt(Math.abs(num)).toFixed(2)) };
+    },
+  },
+
+  "casio-fx83gtx": {
+    inputs: [
+      { id: "x", label: "X", min: -100, max: 100, step: 1, default: 0 },
+    ],
+    calculate: ({ x }) => {
+      return { "x": x, "x²": x * x, "x³": x * x * x, "√x": parseFloat(Math.sqrt(Math.abs(x)).toFixed(2)) };
+    },
+  },
+
+  "sharp-scientific": {
+    inputs: [
+      { id: "base", label: "Base", min: 0.1, max: 100, step: 0.1, default: 10 },
+      { id: "exponent", label: "Exponent", min: -10, max: 10, step: 0.5, default: 2 },
+    ],
+    calculate: ({ base, exponent }) => {
+      const result = Math.pow(base, exponent);
+      return { "Result": parseFloat(result.toFixed(4)), "Logarithm": parseFloat(Math.log(Math.abs(base)).toFixed(4)) };
     },
   },
 
   "programmable": {
     inputs: [
-      { id: "storeValue", label: "Value to Store", min: -100000, max: 100000, step: 0.01, default: 3.14 },
-      { id: "multiplier", label: "Multiply stored by (for example, π × 5²)", min: 0.01, max: 1000, step: 0.01, default: 25 },
-      { id: "addValue", label: "Add value (optional)", min: -100000, max: 100000, step: 0.01, default: 10 },
-      { id: "operation", label: "Operation (1=STO,2=RCL+multiply,3=RCL+add,4=RCL+add+show)", min: 1, max: 4, step: 1, default: 2 },
+      { id: "a", label: "Variable A", min: -1000, max: 1000, step: 1, default: 5 },
+      { id: "b", label: "Variable B", min: -1000, max: 1000, step: 1, default: 3 },
     ],
-    calculate: ({ storeValue, multiplier, addValue, operation }) => {
-      let result = 0;
-      let log = "";
-      
-      if (operation === 1) {
-        log = `STO: Stored ${storeValue.toFixed(4)}`;
-        result = storeValue;
-      } else if (operation === 2) {
-        result = storeValue * multiplier;
-        log = `RCL: ${storeValue.toFixed(4)} × ${multiplier.toFixed(2)} = ${result.toFixed(4)}`;
-      } else if (operation === 3) {
-        result = storeValue + addValue;
-        log = `RCL: ${storeValue.toFixed(4)} + ${addValue.toFixed(2)} = ${result.toFixed(4)}`;
-      } else if (operation === 4) {
-        result = storeValue * multiplier + addValue;
-        log = `RCL: (${storeValue.toFixed(4)} × ${multiplier.toFixed(2)}) + ${addValue.toFixed(2)} = ${result.toFixed(4)}`;
-      }
-      
-      return {
-        "Operation Log": log,
-        "Stored Value": storeValue,
-        "Result": parseFloat(result.toFixed(8)),
-      };
+    calculate: ({ a, b }) => {
+      return { "A": a, "B": b, "A+B": a + b, "A*B": a * b };
     },
   },
 
   "bra-size": {
     inputs: [
-      { id: "underbust", label: "Underbust Size (cm)", min: 50, max: 150, step: 0.5, default: 85 },
-      { id: "bust", label: "Bust Size (cm)", min: 50, max: 150, step: 0.5, default: 95 },
+      { id: "band", label: "Band Size (cm)", min: 60, max: 120, step: 2.5, default: 85 },
+      { id: "bust", label: "Bust Size (cm)", min: 70, max: 150, step: 2.5, default: 95 },
     ],
-    calculate: ({ underbust, bust }) => {
-      const diff = bust - underbust;
+    calculate: ({ band, bust }) => {
+      const diff = bust - band;
       let cup = "AA";
-      if (diff >= 12) cup = "A";
-      if (diff >= 14) cup = "B";
-      if (diff >= 16) cup = "C";
-      if (diff >= 18) cup = "D";
-      if (diff >= 20) cup = "DD";
-      if (diff >= 22) cup = "E";
-      return { "Underbust Size": underbust, "Bust Size": bust, "Size Difference": parseFloat(diff.toFixed(1)), "Estimated Size": `${underbust}${cup}` };
+      if (diff >= 17) cup = "A";
+      if (diff >= 19) cup = "B";
+      if (diff >= 21) cup = "C";
+      if (diff >= 23) cup = "D";
+      return { "Band Size": band, "Estimated Size": `${band}${cup}` };
     },
   },
 
@@ -2126,36 +1792,12 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "clarks-foot-gauge": {
     inputs: [
-      { id: "footLengthMm", label: "Foot Length (mm)", min: 130, max: 280, step: 1, default: 245 },
-      { id: "footWidthMm", label: "Foot Width (mm)", min: 60, max: 120, step: 1, default: 90 },
-      { id: "category", label: "Category (1=Men, 2=Women, 3=Kids)", min: 1, max: 3, step: 1, default: 1 },
+      { id: "mm", label: "Read from Gauge (mm)", min: 130, max: 280, step: 5, default: 215 },
     ],
-    calculate: ({ footLengthMm, footWidthMm, category }) => {
-      const categoryLabels = ["", "Men", "Women", "Kids"];
-      const footLengthCm = footLengthMm / 10;
-      const footWidthCm = footWidthMm / 10;
-      const footLengthInch = footLengthCm / 2.54;
-      const footWidthInch = footWidthCm / 2.54;
-      
-      // Calculate shoe size from foot length
-      const baseShoeSize = (footLengthCm - 8.128) / 0.254;
-      
-      // Width category (narrow, standard, wide)
-      let widthCat = "Standard";
-      if (footWidthMm < 75) widthCat = "Narrow";
-      if (footWidthMm > 105) widthCat = "Wide";
-      
-      return { 
-        "Foot Length (mm)": footLengthMm, 
-        "Foot Length (cm)": parseFloat(footLengthCm.toFixed(1)), 
-        "Foot Length (inches)": parseFloat(footLengthInch.toFixed(2)), 
-        "Foot Width (mm)": footWidthMm, 
-        "Foot Width (cm)": parseFloat(footWidthCm.toFixed(1)), 
-        "Foot Width (inches)": parseFloat(footWidthInch.toFixed(2)), 
-        "Category": categoryLabels[category],
-        "Width Category": widthCat,
-        "Estimated Shoe Size (US)": Math.round(baseShoeSize) 
-      };
+    calculate: ({ mm }) => {
+      const cm = mm / 10;
+      const usSize = Math.round((cm - 8.128) / 0.254);
+      return { "Gauge Reading": mm, "Foot Length (cm)": parseFloat(cm.toFixed(1)), "US Size": usSize };
     },
   },
 
@@ -2172,37 +1814,11 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "clarks-shoe-size": {
     inputs: [
-      { id: "length", label: "Foot Length", min: 6, max: 14, step: 0.1, default: 9 },
-      { id: "unit", label: "Unit (1=cm, 2=inches)", min: 1, max: 2, step: 1, default: 1 },
-      { id: "category", label: "Category (1=Men, 2=Women, 3=Kids)", min: 1, max: 3, step: 1, default: 1 },
+      { id: "cm", label: "Foot Length (cm)", min: 15, max: 35, step: 0.5, default: 25 },
     ],
-    calculate: ({ length, unit, category }) => {
-      // Convert to cm if inches
-      const cm = unit === 2 ? length * 2.54 : length;
-      const categoryLabels = ["", "Men", "Women", "Kids"];
-      const unitLabel = unit === 2 ? "inches" : "cm";
-      
-      // Base size calculation
+    calculate: ({ cm }) => {
       const ukSize = Math.round((cm * 2 - 15.24) / 0.8467);
-      const usSize = parseFloat((ukSize + 1.5).toFixed(1));
-      const euSize = ukSize + 32;
-      
-      // Category adjustments
-      let adjustedUKSize = ukSize;
-      if (category === 3) {
-        adjustedUKSize = Math.max(0, ukSize - 13); // Kids sizing
-      } else if (category === 2) {
-        adjustedUKSize = ukSize - 1.5; // Women's offset
-      }
-      
-      return { 
-        "Foot Length": parseFloat(length.toFixed(1)), 
-        "Unit": unitLabel, 
-        "Category": categoryLabels[category],
-        "UK Size": parseFloat(adjustedUKSize.toFixed(1)), 
-        "US Size": parseFloat((adjustedUKSize + 1.5).toFixed(1)), 
-        "EU Size": Math.round(adjustedUKSize + 32) 
-      };
+      return { "Foot Length": cm, "US Size": parseFloat((ukSize + 1.5).toFixed(1)), "UK Size": ukSize, "EU Size": ukSize + 32 };
     },
   },
 
@@ -2876,309 +2492,4 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
     },
   },
 };
-
-/* ---------- UI CATEGORIES ---------- */
-
-export const categories: Category[] = [
-  {
-    id: "tax-salary",
-    name: "Tax & Salary",
-    description: "Tax calculations, salary deductions and take-home pay estimations",
-    icon: Percent,
-    calculators: [
-      { id: "tax-calculator", name: "Tax Calculator", description: "Estimate income tax for Ireland" },
-      { id: "income-tax", name: "Income Tax (Standard)", description: "Calculate tax due across two bands with credits" },
-      { id: "usc-calculator", name: "USC Calculator", description: "Calculate Universal Social Charge across bands" },
-      { id: "prsi-calculator", name: "PRSI Calculator", description: "Weekly PRSI estimate using rate and limits" },
-      { id: "salary-deductions", name: "Salary Deductions", description: "Calculate statutory and other deductions" },
-      { id: "take-home-pay", name: "Take-home Pay", description: "Estimate net pay after taxes and deductions" },
-      { id: "au-pair-ireland-salary", name: "Au Pair Ireland Salary", description: "Estimate annual and monthly pay for au pairs" },
-      { id: "one-parent-family", name: "One Parent Family", description: "Estimate benefits and net income for single-parent families" },
-      { id: "job-share-salary", name: "Job Share Salary", description: "Calculate your share salary based on weekly hours" },
-      { id: "marginal-tax-rate", name: "Marginal Tax Rate / Cost", description: "Calculate marginal tax rate and effective cost change" },
-      { id: "marginal-cost", name: "Marginal Cost Calculator", description: "Compute marginal and average costs" },
-      { id: "ebitda", name: "EBITDA Calculator", description: "Calculate EBITDA from basic financial inputs" },
-      { id: "diageo-share-price", name: "Diageo Share Price", description: "Portfolio value and change for Diageo shares" },
-      { id: "dhl-price", name: "DHL Price Calculator", description: "Estimate shipping cost with DHL in Ireland" },
-      { id: "dhl-customs-duty", name: "DHL Customs Duty", description: "Estimate customs duty and VAT on imports" },
-      { id: "tax-calculator-denmark", name: "Tax Calculator (Denmark)", description: "Simple Denmark tax estimator" },
-      { id: "dividend-tax-ireland", name: "Dividend Tax (Ireland)", description: "Estimate tax on dividend income" },
-      { id: "capital-gains-tax", name: "Capital Gains Tax (CGT)", description: "Calculate CGT from sale/purchase and allowable costs" },
-      { id: "airbnb-tax-ireland", name: "Airbnb Tax (Ireland)", description: "Estimate taxes on short-term rental income" },
-      { id: "inheritance-tax-ireland", name: "Inheritance Tax (Ireland)", description: "Estimate inheritance tax payable in Ireland" },
-    ],
-  },
-  {
-    id: "loan-finance",
-    name: "Loan & Finance",
-    description: "Car loans, credit union loans and other finance calculators",
-    icon: IndianRupee,
-    calculators: [
-      { id: "car-loan", name: "Car Loan Calculator", description: "Monthly repayments for car finance" },
-      { id: "car-finance", name: "Car Finance Calculator", description: "Compare finance options for vehicles" },
-      { id: "credit-union-loan", name: "Credit Union Loan Calculator", description: "Estimate CU loan repayments" },
-      { id: "credit-union-mortgage", name: "Credit Union Mortgage Calculator", description: "Mortgage calculations for credit union products" },
-      { id: "buy-to-let", name: "Buy-to-Let Mortgage Calculator", description: "Assess buy-to-let mortgage returns and costs" },
-      { id: "aib-business-loan", name: "AIB Business Loan Calculator", description: "AIB business loan repayment calculator" },
-      { id: "permanent-tsb-loan", name: "Permanent TSB Loan", description: "Permanent TSB personal and business loans" },
-      { id: "bank-of-ireland-loan", name: "Bank of Ireland Loan", description: "BoI loan repayment estimator" },
-      { id: "hsscu-loan", name: "HSSCU Loan Calculator", description: "Healthcare sector credit union loans" },
-      { id: "spry-finance", name: "Spry Finance Calculator", description: "Spry digital lending calculator" },
-      { id: "farm-loan", name: "Farm Loan Calculator", description: "Agricultural and farm loan estimator" },
-      { id: "vw-pcp", name: "VW PCP Calculator", description: "Volkswagen Personal Contract Plan calculator" },
-      { id: "audi-loan", name: "Audi Car Finance Calculator", description: "Audi financing options and payments" },
-      { id: "kia-loan", name: "Kia Car Finance", description: "Kia vehicle loan and finance calculator" },
-      { id: "hyundai-loan", name: "Hyundai Car Finance", description: "Hyundai financing and loan estimator" },
-      { id: "peugeot-loan", name: "Peugeot Car Finance", description: "Peugeot vehicle financing calculator" },
-      { id: "skoda-loan", name: "Skoda Car Finance", description: "Skoda car loan and repayment calculator" },
-      { id: "skoda-pcp", name: "Skoda PCP Calculator", description: "Skoda Personal Contract Plan option" },
-      { id: "volkswagen-pcp", name: "Volkswagen PCP (Alternative)", description: "VW PCP comprehensive calculator" },
-      { id: "hyundai-pcp", name: "Hyundai PCP Calculator", description: "Hyundai Personal Contract Plan" },
-      { id: "aib-mortgage-overpayment", name: "AIB Mortgage Overpayment", description: "Calculate mortgage savings with overpayments" },
-      { id: "topup-mortgage", name: "Mortgage Top-Up Calculator", description: "Add extra borrowing to existing mortgage" },
-      { id: "self-build-mortgage", name: "Self-Build Mortgage", description: "Financing for new build properties" },
-      { id: "mortgage-switch", name: "Mortgage Switch Calculator", description: "Compare mortgage rates when switching" },
-      { id: "investment-mortgage", name: "Investment Mortgage Calculator", description: "Investment property mortgage and ROI" },
-      { id: "commercial-loan", name: "Commercial Loan Calculator", description: "Business and commercial lending calculator" },
-      { id: "business-loan-general", name: "Business Loan (General)", description: "General business financing tool" },
-      { id: "loan-interest-calculator", name: "Loan Interest Calculator", description: "Simple interest calculation for any loan" },
-      { id: "equity-release", name: "Equity Release Calculator", description: "Estimate equity release options" },
-    ],
-  },
-  {
-    id: "mortgage-property",
-    name: "Mortgage & Property",
-    description: "Property costs, stamp duty, renovation and construction cost calculators",
-    icon: Home,
-    calculators: [
-      { id: "stamp-duty", name: "Stamp Duty Calculator", description: "Calculate stamp duty on property purchases by buyer type (first-time, residential, non-residential)" },
-      { id: "online-property-value", name: "Online Property Valuation", description: "Estimate property value using AVM (Automated Valuation Model) approach" },
-      { id: "cost-of-building-house", name: "House Building Cost Calculator", description: "Estimate total cost to build a house including contingency and professional fees" },
-      { id: "build-2000-sqft-house", name: "2000 Sq Ft House Build Cost", description: "Calculate build cost for houses in square footage with cost per sq ft" },
-      { id: "extension-cost-ireland", name: "Extension Cost Calculator (Global)", description: "Estimate cost of home extension including labour and multi-storey premium" },
-      { id: "renovation-cost-ireland", name: "Renovation Cost Calculator (Global)", description: "Calculate renovation costs by area with labour breakdown" },
-      { id: "conservatory-cost-ireland", name: "Conservatory Cost Calculator (Global)", description: "Estimate conservatory costs including foundations" },
-      { id: "kitchen-cost-ireland", name: "Kitchen Cost Calculator (Global)", description: "Calculate kitchen refit costs (cabinetry, appliances, worktop, labour)" },
-      { id: "bathroom-cost-ireland", name: "Bathroom Cost Calculator (Global)", description: "Estimate bathroom renovation costs (sanitaryware, tiling, labour)" },
-      { id: "roof-cost-ireland", name: "Roof Cost Calculator (Global)", description: "Calculate roof replacement costs (materials, labour, scaffolding)" },
-      { id: "flooring-cost-ireland", name: "Flooring Cost Calculator (Global)", description: "Estimate flooring installation costs (material, underlay, labour)" },
-      { id: "window-cost-ireland", name: "Window Cost Calculator (Global)", description: "Calculate window replacement costs per window plus installation" },
-      { id: "triple-glazing-cost", name: "Triple Glazing Cost Calculator", description: "Estimate triple glazing costs (glazing, frame, installation)" },
-      { id: "external-wall-insulation", name: "External Wall Insulation (EWI) Calculator", description: "Calculate EWI costs (material, render, scaffolding, labour)" },
-      { id: "house-rewiring-cost", name: "House Rewiring Cost Calculator", description: "Estimate full house rewiring costs (wiring, consumer unit, testing)" },
-      { id: "decking-calculator", name: "Decking Cost Calculator", description: "Calculate decking project costs (material, frame, labour)" },
-      { id: "tarmac-driveway-ireland", name: "Tarmac Driveway Calculator (Global)", description: "Estimate tarmac driveway costs (tarmac, sub-base, edging)" },
-      { id: "fitted-wardrobe-calculator", name: "Fitted Wardrobe Cost Calculator", description: "Calculate fitted wardrobe costs (cabinet, fittings, installation)" },
-      { id: "tree-removal-calculator", name: "Tree Removal Cost Calculator", description: "Estimate tree removal costs (by height and access difficulty, includes stump removal)" },
-      { id: "cycle-to-work-ireland", name: "Cycle-to-Work Scheme (Global)", description: "Calculate tax savings from salary sacrifice schemes (varies by country)" },
-      { id: "solar-calculator-ireland", name: "Solar Calculator (Global)", description: "Estimate solar panel payback period, 20-year savings and ROI" },
-    ],
-  },
-  {
-    id: "insurance-pension",
-    name: "Insurance & Pension",
-    description: "Pensions, retirement and insurance planning tools",
-    icon: Home,
-    calculators: [
-      { id: "hse-pension", name: "HSE Pension Calculator", description: "Estimate HSE pension entitlements" },
-      { id: "hse-retirement", name: "HSE Retirement Calculator", description: "Plan HSE retirement scenarios" },
-      { id: "hse-annual-leave", name: "HSE Annual Leave Calculator", description: "Calculate annual leave entitlements" },
-      { id: "into-pension", name: "INTO Pension Calculator", description: "INTO pension planning tool" },
-      { id: "new-ireland-pension", name: "New Ireland Pension Calculator", description: "New Ireland pension estimator" },
-      { id: "pension-defined-benefit", name: "Defined Benefit Pension", description: "Estimate defined benefit (final salary) pension based on accrual rate" },
-      { id: "pension-defined-contribution", name: "Defined Contribution Projection", description: "Project pension pot growth based on contributions and returns" },
-      { id: "annuity-calculator", name: "Annuity Calculator", description: "Estimate lifetime income from a pension lump sum" },
-      { id: "annuity", name: "Annuity (Simple)", description: "Simple annuity estimate from pot and annuity rate" },
-      { id: "max-funding", name: "Max Funding Calculator", description: "Estimate max pension funding limits based on age and salary" },
-      { id: "pension-max-funding", name: "Pension Max Funding (Age Limits)", description: "Age-based maximum allowable pension contributions" },
-      { id: "single-pension-scheme", name: "Single Pension Scheme Calculator", description: "Career-average pension scheme estimator" },
-      { id: "pension-single-scheme", name: "Single Pension Scheme (Alternate)", description: "Alternate career-average pension calculator" },
-      { id: "life-insurance", name: "Life Insurance Calculator", description: "Recommend life cover based on debts and income replacement" },
-      { id: "mortgage-protection", name: "Mortgage Protection Calculator", description: "Calculate mortgage protection cover" },
-      { id: "income-protection", name: "Income Protection Calculator", description: "Estimate monthly income protection benefits" },
-    ],
-  },
-  {
-    id: "leave-work",
-    name: "Leave & Work Allowance",
-    description: "Maternity, annual leave and workplace allowance tools",
-    icon: Home,
-    calculators: [
-      { id: "maternity-leave", name: "Maternity Leave Calculator", description: "Estimate maternity leave entitlements" },
-      { id: "into-maternity", name: "INTO Maternity Calculator", description: "INTO-specific maternity calculations" },
-      { id: "maternity-date", name: "Maternity Leave Date Calculator", description: "Calculate official maternity dates" },
-      { id: "maternity-paternity-leave", name: "Maternity/Paternity Leave (Global)", description: "Calculate leave dates and statutory pay globally" },
-      { id: "annual-leave", name: "Annual Leave Calculator", description: "Calculate annual leave and balances" },
-      { id: "annual-leave-pro-rata", name: "Annual Leave Pro-Rata (Global)", description: "Pro-rated annual leave based on start date and months worked" },
-      { id: "holiday-pay", name: "Holiday Pay Calculator", description: "Estimate holiday pay owed" },
-      { id: "holiday-pay-accrual", name: "Holiday Pay Accrual (Global)", description: "Calculate accrued holiday pay owed on leaving" },
-      { id: "holiday-entitlements", name: "Holiday Entitlements (Global)", description: "Determine paid public holiday entitlements using accrual method" },
-      { id: "part-time-holiday-pay", name: "Part-Time Holiday Pay", description: "Pro-rate holiday pay for part-time workers" },
-      { id: "part-time-holiday-pay-pro-rata", name: "Part-Time Holiday Pay (Global)", description: "Pro-rata holiday entitlement for part-time workers globally" },
-      { id: "rent-allowance", name: "Rent Allowance Calculator", description: "Estimate housing assistance based on means test" },
-      { id: "rent-benefit-means-test", name: "Rent Benefit (Means Test Global)", description: "Calculate rent benefit with income disregard and tapering" },
-      { id: "social-housing-rent", name: "Social Housing Rent Calculator", description: "Estimate income-based social housing rent" },
-      { id: "social-housing-rent-calculated", name: "Social Housing Rent (Global)", description: "Calculate rent as percentage of income with minimum" },
-    ],
-  },
-  {
-    id: "education-student",
-    name: "Education & Student",
-    description: "Degree progress, reading fluency, GPA, QCA, UCAS, and university grade calculators",
-    icon: Home,
-    calculators: [
-      { id: "degree-progress-calculator", name: "Degree Progress Calculator (ECTS)", description: "Calculate percentage and progress towards degree completion" },
-      { id: "running-record", name: "Running Record & Reading Fluency", description: "Analyze oral reading accuracy, error rate, self-corrections, and words-per-minute" },
-      { id: "a-level-ucas-points", name: "A-Level UCAS Points Calculator", description: "Estimate UCAS tariff points from A-Level grades (A*=56, A=48, etc.)" },
-      { id: "leaving-cert-points", name: "Leaving Certificate Points", description: "Calculate LC points from best 6 subjects (level-aware)" },
-      { id: "hpat-score", name: "Medical Admissions Test (HPAT)", description: "Estimate HPAT section scores and combined score" },
-      { id: "hpat-points", name: "HPAT + Leaving Cert Points", description: "Combine HPAT with Leaving Cert points for medicine entry" },
-      { id: "qqi-points", name: "Further Education Award Points (QQI)", description: "Points for Further Education awards by module and level" },
-      { id: "university-grade-percentage", name: "University Grade Percentage", description: "Calculate weighted percentage across modules with credits" },
-      { id: "gpa-calculator", name: "University GPA (4.0 Scale)", description: "Flexible GPA: credits × grade point / total credits" },
-      { id: "university-qca", name: "University QCA Calculator", description: "Quality Credit Average calculation using institutional scale (A1-C)" },
-      { id: "ucd-gpa", name: "UCD GPA Calculator (Alternative)", description: "UCD-style GPA using institution grade-point mapping" },
-      { id: "ects-calculator", name: "ECTS Credits Calculator", description: "Sum ECTS credits across modules/courses" },
-      { id: "ucas-points", name: "UCAS Points (Legacy)", description: "Convert percentage grades to UK UCAS tariff points" },
-    ],
-  },
-  {
-    id: "math-science",
-    name: "Math & Science",
-    description: "Advanced mathematics and scientific calculation tools",
-    icon: Percent,
-    calculators: [
-      { id: "compound-interest", name: "Compound Interest Calculator", description: "Compound interest over time" },
-      { id: "investment-calculator", name: "Investment Calculator", description: "Project investment growth" },
-      { id: "savings-calculator", name: "Savings Calculator", description: "Plan and project savings" },
-      { id: "critical-points", name: "Critical Points Calculator", description: "Find critical points of functions via f'(x)=0" },
-      { id: "completing-the-square", name: "Completing the Square", description: "Transform quadratic equations to vertex form" },
-      { id: "simpsons-rule", name: "Simpson's Rule", description: "Approximate definite integrals numerically" },
-      { id: "directional-derivative", name: "Directional Derivative", description: "Rate of change in a given vector direction" },
-      { id: "standard-deviation-casio", name: "Standard Deviation (Casio)", description: "Population and sample standard deviation calculator" },
-      { id: "titration", name: "Titration Calculator", description: "Acid-base chemistry titration calculations" },
-      { id: "binomial-expansion", name: "Binomial Expansion", description: "Expand binomial expressions (a+b)^n" },
-      { id: "partial-fraction-decomposition", name: "Partial Fraction Decomposition", description: "Break rational functions into simpler fractions" },
-      { id: "taylor-series", name: "Taylor Series", description: "Approximate functions using Taylor series expansion" },
-      { id: "radius-of-convergence", name: "Radius of Convergence", description: "Find convergence interval for power series" },
-      { id: "fourier-transform", name: "Fourier Transform", description: "Decompose functions into frequency components" },
-      { id: "fourier-series", name: "Fourier Series", description: "Represent periodic functions as sine/cosine sums" },
-      { id: "laplace-transform", name: "Laplace Transform", description: "Convert time-domain to frequency-domain" },
-      { id: "inverse-laplace-transform", name: "Inverse Laplace Transform", description: "Convert frequency-domain back to time-domain" },
-    ],
-  },
-  {
-    id: "calculators-suite",
-    name: "Interactive Calculators Suite",
-    description: "Interactive personal finance and scientific calculators",
-    icon: Home,
-    calculators: [
-      { id: "financial-personality", name: "Financial Personality Profile", description: "Sean Casey Style - Personal finance profile builder with action plan" },
-      { id: "loan-repayment", name: "Loan Repayment Calculator", description: "James Smith Style - Calculate monthly payments and interest" },
-      { id: "casio-fx83gtx", name: "Advanced Scientific (Casio FX-83GTX)", description: "Full-featured scientific calculator with trigonometry, logs, and powers" },
-      { id: "casio-watch", name: "Simple Watch Calculator", description: "Compact 4-function minimalist calculator interface" },
-      { id: "programmable", name: "Programmable/Memory Calculator", description: "Calculator with STO (Store) and RCL (Recall) functions" },
-    ],
-  },
-  {
-    id: "casio-generic",
-    name: "Casio & Generic",
-    description: "Virtual handheld and programmable calculators",
-    icon: Home,
-    calculators: [
-      { id: "casio-fx83gtx", name: "Casio FX-83GTX", description: "Scientific calculator emulator (trigonometry, logarithms, functions)" },
-      { id: "casio-watch", name: "Casio Calculator Watch", description: "Compact watch-style calculator for everyday arithmetic" },
-      { id: "programmable", name: "Programmable Calculator", description: "Programmable-style calculator (financial calculations, memory functions)" },
-      { id: "non-programmable", name: "Non-Programmable Calculator", description: "Basic non-programmable handheld calculator" },
-      { id: "scientific-general", name: "Scientific Calculator", description: "General-purpose scientific calculator (global standard)" },
-      { id: "casio-reset-guide", name: "How to Reset Casio Calculator", description: "Guide: Step-by-step instructions to reset Casio calculators" },
-    ],
-  },
-  {
-    id: "fashion-size",
-    name: "Fashion & Size",
-    description: "Size, measurement and conversion tools",
-    icon: Home,
-    calculators: [
-      { id: "bra-size", name: "Bra Size Calculator", description: "Estimate bra sizes from measurements" },
-      { id: "clarks-size", name: "Clarks Size Calculator", description: "Clarks shoe sizing guide" },
-      { id: "clarks-foot-gauge", name: "Clarks Foot Gauge", description: "Measure foot gauge for Clarks" },
-      { id: "clarks-foot-converter", name: "Clarks Foot Size Converter", description: "Convert foot measurements between systems" },
-      { id: "clarks-shoe-size", name: "Clarks Shoe Size Tool", description: "Find your Clarks shoe size" },
-    ],
-  },
-  {
-    id: "general-misc",
-    name: "General & Miscellaneous",
-    description: "Various everyday utility calculators",
-    icon: Home,
-    calculators: [
-      { id: "vrt-calculator", name: "VRT Calculator", description: "Vehicle registration tax estimator" },
-      { id: "petrol-calculator-ireland", name: "Petrol Calculator (Global)", description: "Estimate fuel cost for trips worldwide" },
-      { id: "fuel-calculator-ireland", name: "Fuel Calculator (Global)", description: "Estimate fuel consumption and cost worldwide" },
-      { id: "piab-injury", name: "PIAB Injury Calculator", description: "Estimate PIAB injury awards" },
-      { id: "injury-claim", name: "Injury Claim Calculator", description: "Injury claim and compensation estimator" },
-      { id: "ex-gratia-redundancy", name: "Ex-Gratia Redundancy Calculator", description: "Redundancy payment estimations" },
-      { id: "leaving-ireland-tax", name: "Exit Tax / Leaving Country", description: "Estimate exit tax or final liability when leaving a country" },
-      { id: "slimming-syns", name: "Slimming Syns Calculator", description: "Estimate syn values for food items" },
-      { id: "safefood-turkey", name: "Turkey Cooking Time Calculator", description: "Estimate turkey cooking time based on weight and oven settings" },
-      { id: "pregnancy-calculator", name: "Pregnancy Calculator", description: "Estimate due date and pregnancy timeline (global standards)" },
-      { id: "ovulation-calculator", name: "Ovulation Calculator", description: "Predict ovulation and fertile window" },
-      { id: "rotunda-due-date", name: "Hospital Due Date Calculator", description: "Hospital-specific due date estimate (enter scan or LMP data)" },
-      { id: "electricity-bill-ireland", name: "Electricity Bill Calculator (Global)", description: "Estimate electricity bills (global units/currencies)" },
-      { id: "gas-bill-ireland", name: "Gas Bill Calculator (Global)", description: "Estimate gas bills (global units/currencies)" },
-      { id: "kwh-cost-ireland", name: "kWh Cost Calculator (Global)", description: "Calculate appliance running costs (global units)" },
-      { id: "heat-pump-cost-ireland", name: "Heat Pump Cost Calculator (Global)", description: "Estimate install and payback for heat pumps" },
-      { id: "btu-calculator-ireland", name: "BTU Calculator (Global)", description: "Calculate heating/cooling BTU requirements" },
-      { id: "nox-calculator-ireland", name: "NOx Calculator (Global)", description: "Estimate NOx emissions from consumption" },
-      { id: "stocking-rate-calculator", name: "Stocking Rate Calculator", description: "Determine livestock capacity for land" },
-      { id: "nitrates-calculator", name: "Nitrates Calculator", description: "Calculate nitrogen loading for compliance" },
-      { id: "sheep-gestation", name: "Sheep Gestation Calculator", description: "Predict lambing date" },
-      { id: "mare-gestation", name: "Mare Gestation Calculator", description: "Predict foaling date for horses" },
-      { id: "calving-calculator", name: "Calving Calculator", description: "Predict calving date for cattle" },
-      { id: "expenses-calculator-ireland", name: "Expenses Calculator (Ireland)", description: "Track and total expenses" },
-      { id: "gaa-age-calculator", name: "GAA Age Calculator", description: "Determine age grade for GAA" },
-      { id: "community-games-age", name: "Community Games Age Calculator", description: "Determine age group for Community Games" },
-      { id: "dog-heat-cycle", name: "Dog Heat Cycle Calculator", description: "Track canine reproductive cycles" },
-    ],
-  },
-];
-
-/* ---------- SEARCH HELPERS ---------- */
-
-export type CalculatorInfo = {
-  id: string;
-  name: string;
-  description: string;
-  category: string;
-  path: string;
-};
-
-export function getAllCalculators(): CalculatorInfo[] {
-  const list: CalculatorInfo[] = [];
-  for (const cat of categories) {
-    for (const calc of cat.calculators) {
-      list.push({
-        id: calc.id,
-        name: calc.name,
-        description: calc.description,
-        category: cat.name,
-        path: `/calculators/${calc.id}`,
-      });
-    }
-  }
-  return list;
-}
-
-export function searchCalculators(query: string): CalculatorInfo[] {
-  const q = query.trim().toLowerCase();
-  if (!q) return [];
-  return getAllCalculators().filter((c) => {
-    return (
-      c.id.toLowerCase().includes(q) ||
-      c.name.toLowerCase().includes(q) ||
-      c.description.toLowerCase().includes(q) ||
-      c.category.toLowerCase().includes(q)
-    );
-  });
-}
+module.exports = { calculatorLogic };

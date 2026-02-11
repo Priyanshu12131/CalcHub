@@ -1,0 +1,1512 @@
+{
+  "mortgage": {
+    "ok": true,
+    "output": {
+      "Monthly EMI": 26035,
+      "Total Interest": 3248327,
+      "Total Payment": 6248327
+    },
+    "issues": []
+  },
+  "loan": {
+    "ok": true,
+    "output": {
+      "Monthly EMI": 16369,
+      "Total Payment": 589297
+    },
+    "issues": []
+  },
+  "vat": {
+    "ok": true,
+    "output": {
+      "VAT Amount": 2000,
+      "Total Price": 12000
+    },
+    "issues": []
+  },
+  "tax-calculator": {
+    "ok": true,
+    "output": {
+      "Income Tax": 7486,
+      "Net Income": 42514
+    },
+    "issues": []
+  },
+  "salary-deductions": {
+    "ok": true,
+    "output": {
+      "Income Tax": 8200,
+      "PRSI": 3500,
+      "USC": 1800,
+      "Total Deductions": 13500
+    },
+    "issues": []
+  },
+  "take-home-pay": {
+    "ok": true,
+    "output": {
+      "Deductions": 16750,
+      "Net Annual Pay": 33250,
+      "Monthly Net": 2771
+    },
+    "issues": []
+  },
+  "car-loan": {
+    "ok": true,
+    "output": {
+      "Monthly Payment": 478,
+      "Total Payment": 28652,
+      "Total Interest": 3652
+    },
+    "issues": []
+  },
+  "car-finance": {
+    "ok": true,
+    "output": {
+      "Deposit": 7000,
+      "Amount to Finance": 28000,
+      "Monthly Payment": 527,
+      "Total Paid": 31627
+    },
+    "issues": []
+  },
+  "credit-union-loan": {
+    "ok": true,
+    "output": {
+      "Monthly Repayment": 309,
+      "Total Interest": 1116,
+      "Total Amount": 11116
+    },
+    "issues": []
+  },
+  "credit-union-mortgage": {
+    "ok": true,
+    "output": {
+      "Monthly Repayment": 2002,
+      "Total Interest": 200748,
+      "Total Amount": 600748
+    },
+    "issues": []
+  },
+  "buy-to-let": {
+    "ok": true,
+    "output": {
+      "Monthly Mortgage": 2977,
+      "Monthly Rent": 1500,
+      "ROI %": "-3.55"
+    },
+    "issues": []
+  },
+  "pension-defined-benefit": {
+    "ok": true,
+    "output": {
+      "Annual Pension": 22500,
+      "Monthly Pension": 1875
+    },
+    "issues": []
+  },
+  "pension-defined-contribution": {
+    "ok": true,
+    "output": {
+      "Future Value": 639517,
+      "Est. Annual Income (4%)": 25581
+    },
+    "issues": []
+  },
+  "annuity": {
+    "ok": true,
+    "output": {
+      "Annual Income": 10000,
+      "Monthly Income": 833
+    },
+    "issues": []
+  },
+  "pension-max-funding": {
+    "ok": true,
+    "output": {
+      "Max Contribution": 15000,
+      "Remaining Allowance": 10000
+    },
+    "issues": []
+  },
+  "pension-single-scheme": {
+    "ok": true,
+    "output": {
+      "Annual Pension": 8700,
+      "Lump Sum": 0
+    },
+    "issues": []
+  },
+  "aib-business-loan": {
+    "ok": true,
+    "output": {
+      "Monthly Repayment": 955,
+      "Total Interest": 7303,
+      "Total Amount": 57303
+    },
+    "issues": []
+  },
+  "permanent-tsb-loan": {
+    "ok": true,
+    "output": {
+      "Monthly Repayment": 759,
+      "Total Cost": 45511
+    },
+    "issues": []
+  },
+  "bank-of-ireland-loan": {
+    "ok": true,
+    "output": {
+      "Monthly Payment": 962,
+      "Total Interest": 7720,
+      "Total Amount": 57720
+    },
+    "issues": []
+  },
+  "hsscu-loan": {
+    "ok": true,
+    "output": {
+      "Monthly Repayment": 245,
+      "Total Repaid": 8827
+    },
+    "issues": []
+  },
+  "spry-finance": {
+    "ok": true,
+    "output": {
+      "Monthly Payment": 616,
+      "Total Cost": 29578
+    },
+    "issues": []
+  },
+  "farm-loan": {
+    "ok": true,
+    "output": {
+      "Monthly Repayment": 1036,
+      "Total Interest": 24366,
+      "Total Repaid": 124366
+    },
+    "issues": []
+  },
+  "vw-pcp": {
+    "ok": true,
+    "output": {
+      "Monthly Payment": 319,
+      "Final Balloon": 18000,
+      "Total Cost": 41324
+    },
+    "issues": []
+  },
+  "audi-loan": {
+    "ok": true,
+    "output": {
+      "Deposit": 10000,
+      "Monthly Payment": 753,
+      "Total Interest": 5181
+    },
+    "issues": []
+  },
+  "kia-loan": {
+    "ok": true,
+    "output": {
+      "Monthly Payment": 531,
+      "Total Paid": 31858,
+      "Down Payment": 7000
+    },
+    "issues": []
+  },
+  "hyundai-loan": {
+    "ok": true,
+    "output": {
+      "Monthly Payment": 574,
+      "Total Cost": 42021
+    },
+    "issues": []
+  },
+  "peugeot-loan": {
+    "ok": true,
+    "output": {
+      "Monthly Payment": 636,
+      "Total Interest": 4537
+    },
+    "issues": []
+  },
+  "skoda-loan": {
+    "ok": true,
+    "output": {
+      "Deposit": 7200,
+      "Monthly Payment": 541,
+      "Total Financed": 28800
+    },
+    "issues": []
+  },
+  "skoda-pcp": {
+    "ok": true,
+    "output": {
+      "Monthly Payment": 326,
+      "Residual Value": 16200,
+      "Total Paid": 37269
+    },
+    "issues": []
+  },
+  "volkswagen-pcp": {
+    "ok": true,
+    "output": {
+      "Monthly Payment": 456,
+      "Final Payment": 20000,
+      "Total Paid": 51891
+    },
+    "issues": []
+  },
+  "hyundai-pcp": {
+    "ok": true,
+    "output": {
+      "Monthly: €": 345,
+      "Residual €": 17100,
+      "Total €": 39339
+    },
+    "issues": []
+  },
+  "aib-mortgage-overpayment": {
+    "ok": true,
+    "output": {
+      "Standard Monthly": 2320,
+      "With Extra": 2520,
+      "Savings": -48000
+    },
+    "issues": []
+  },
+  "topup-mortgage": {
+    "ok": true,
+    "output": {
+      "Total Borrowed": 350000,
+      "Monthly Payment": 2084,
+      "Total Interest": 150215
+    },
+    "issues": []
+  },
+  "self-build-mortgage": {
+    "ok": true,
+    "output": {
+      "Total Project Cost": 300000,
+      "Monthly Payment": 1502,
+      "Total Interest": 150561
+    },
+    "issues": []
+  },
+  "mortgage-switch": {
+    "ok": true,
+    "output": {
+      "Current Monthly": 2640,
+      "New Monthly": 2320,
+      "Total Savings": 76796
+    },
+    "issues": []
+  },
+  "investment-mortgage": {
+    "ok": true,
+    "output": {
+      "Monthly Payment": 3030,
+      "Annual Income": 30000,
+      "Net Return %": "6.00"
+    },
+    "issues": []
+  },
+  "commercial-loan": {
+    "ok": true,
+    "output": {
+      "Monthly Payment": 2713,
+      "Total Interest": 75579,
+      "Total Cost": 325579
+    },
+    "issues": []
+  },
+  "business-loan-general": {
+    "ok": true,
+    "output": {
+      "Monthly Repayment": 1980,
+      "Total Interest": 18807,
+      "Total Repaid": 118807
+    },
+    "issues": []
+  },
+  "loan-interest-calculator": {
+    "ok": true,
+    "output": {
+      "Interest": 12500,
+      "Total Amount": 62500
+    },
+    "issues": []
+  },
+  "equity-release": {
+    "ok": true,
+    "output": {
+      "Maximum Available": 87500,
+      "Property Value": 500000
+    },
+    "issues": []
+  },
+  "stamp-duty": {
+    "ok": true,
+    "output": {
+      "Stamp Duty": 0,
+      "Total Cost": 400000
+    },
+    "issues": []
+  },
+  "online-property-value": {
+    "ok": true,
+    "output": {
+      "Base Value": 750000,
+      "Estimated Value": 811000,
+      "Price/m²": 5000
+    },
+    "issues": []
+  },
+  "cost-of-building-house": {
+    "ok": true,
+    "output": {
+      "Base Build Cost": 400000,
+      "Contingency (15%)": 60000,
+      "Professional Fees (8%)": 32000,
+      "Total": 492000
+    },
+    "issues": []
+  },
+  "build-2000-sqft-house": {
+    "ok": true,
+    "output": {
+      "Total Build Cost": 500000,
+      "Area (m²)": 186,
+      "Cost per m²": 2691
+    },
+    "issues": []
+  },
+  "extension-cost-ireland": {
+    "ok": true,
+    "output": {
+      "Material Cost": 54000,
+      "Labour": 13500,
+      "Total Extension Cost": 67500
+    },
+    "issues": []
+  },
+  "renovation-cost-ireland": {
+    "ok": true,
+    "output": {
+      "Materials": 84000,
+      "Labour": 36000,
+      "Total Renovation": 120000
+    },
+    "issues": []
+  },
+  "conservatory-cost-ireland": {
+    "ok": true,
+    "output": {
+      "Structure Cost": 36000,
+      "Foundations": 5400,
+      "Total Conservatory": 41400
+    },
+    "issues": []
+  },
+  "kitchen-cost-ireland": {
+    "ok": true,
+    "output": {
+      "Cabinetry": 4500,
+      "Worktop": 2400,
+      "Appliances": 3000,
+      "Labour": 1725,
+      "Total Kitchen": 11625
+    },
+    "issues": []
+  },
+  "bathroom-cost-ireland": {
+    "ok": true,
+    "output": {
+      "Sanitaryware": 2000,
+      "Tiling": 9000,
+      "Labour": 3300,
+      "Total Bathroom": 14300
+    },
+    "issues": []
+  },
+  "roof-cost-ireland": {
+    "ok": true,
+    "output": {
+      "Material": 40000,
+      "Labour": 14000,
+      "Scaffolding": 4000,
+      "Total Roof": 58000
+    },
+    "issues": []
+  },
+  "flooring-cost-ireland": {
+    "ok": true,
+    "output": {
+      "Material": 8000,
+      "Underlay": 2000,
+      "Labour": 2500,
+      "Total Flooring": 12500
+    },
+    "issues": []
+  },
+  "window-cost-ireland": {
+    "ok": true,
+    "output": {
+      "Windows": 4800,
+      "Installation": 960,
+      "Total Window Cost": 5760
+    },
+    "issues": []
+  },
+  "triple-glazing-cost": {
+    "ok": true,
+    "output": {
+      "Glazing": 9000,
+      "Frame": 4500,
+      "Installation": 2025,
+      "Total Triple Glazing": 15525
+    },
+    "issues": []
+  },
+  "external-wall-insulation": {
+    "ok": true,
+    "output": {
+      "Material & Render": 27000,
+      "Scaffolding": 2250,
+      "Labour": 6750,
+      "Total EWI": 36000
+    },
+    "issues": []
+  },
+  "house-rewiring-cost": {
+    "ok": true,
+    "output": {
+      "Wiring": 4000,
+      "Consumer Unit": 800,
+      "Testing": 400,
+      "Total Rewiring": 5200
+    },
+    "issues": []
+  },
+  "decking-calculator": {
+    "ok": true,
+    "output": {
+      "Decking Material": 6000,
+      "Frame/Joists": 1800,
+      "Labour": 1950,
+      "Total Decking": 9750
+    },
+    "issues": []
+  },
+  "tarmac-driveway-ireland": {
+    "ok": true,
+    "output": {
+      "Tarmac": 2500,
+      "Sub-Base": 1000,
+      "Edging": 500,
+      "Total Driveway": 4000
+    },
+    "issues": []
+  },
+  "fitted-wardrobe-calculator": {
+    "ok": true,
+    "output": {
+      "Cabinet": 2400,
+      "Internal Fittings": 480,
+      "Installation": 360,
+      "Total Wardrobe": 3240
+    },
+    "issues": []
+  },
+  "tree-removal-calculator": {
+    "ok": true,
+    "output": {
+      "Tree Removal": 1680,
+      "Stump Removal": 336,
+      "Total": 2016
+    },
+    "issues": []
+  },
+  "cycle-to-work-ireland": {
+    "ok": true,
+    "output": {
+      "Gross Price": 600,
+      "Tax Saving": 120,
+      "Net Cost": 480
+    },
+    "issues": []
+  },
+  "solar-calculator-ireland": {
+    "ok": true,
+    "output": {
+      "System Size": 4,
+      "Payback Period (years)": "12.5",
+      "20-Year Savings": 16000,
+      "ROI %": "60.0"
+    },
+    "issues": []
+  },
+  "hse-pension": {
+    "ok": true,
+    "output": {
+      "Annual Pension": 22500,
+      "Lump Sum": 67500,
+      "Monthly Pension": 1875
+    },
+    "issues": []
+  },
+  "hse-retirement": {
+    "ok": true,
+    "output": {
+      "Years to Retirement": 10,
+      "Estimated Pension": 9375,
+      "Monthly Pension": 781
+    },
+    "issues": []
+  },
+  "hse-annual-leave": {
+    "ok": true,
+    "output": {
+      "Days Remaining": 12,
+      "Approx Value (€)": 3000
+    },
+    "issues": []
+  },
+  "into-pension": {
+    "ok": true,
+    "output": {
+      "Annual Pension": 25000,
+      "Monthly Pension": 2083
+    },
+    "issues": []
+  },
+  "new-ireland-pension": {
+    "ok": true,
+    "output": {
+      "Projected Value": 205517,
+      "Contributed": 120000,
+      "Growth": 85517
+    },
+    "issues": []
+  },
+  "annuity-calculator": {
+    "ok": true,
+    "output": {
+      "Estimated Annual Income": 4000,
+      "Estimated Monthly Income": 333
+    },
+    "issues": []
+  },
+  "max-funding": {
+    "ok": true,
+    "output": {
+      "Max Annual Contribution": 15000,
+      "Contribution %": "25"
+    },
+    "issues": []
+  },
+  "single-pension-scheme": {
+    "ok": true,
+    "output": {
+      "Annual Pension": 7830,
+      "Lump Sum": 23490
+    },
+    "issues": []
+  },
+  "life-insurance": {
+    "ok": true,
+    "output": {
+      "Recommended Cover": 440000
+    },
+    "issues": []
+  },
+  "mortgage-protection": {
+    "ok": true,
+    "output": {
+      "Suggested Cover": 200000,
+      "Years Remaining": 20
+    },
+    "issues": []
+  },
+  "income-protection": {
+    "ok": true,
+    "output": {
+      "Monthly Benefit": 1800,
+      "Deferred Months": 3
+    },
+    "issues": []
+  },
+  "maternity-leave": {
+    "ok": true,
+    "output": {
+      "Paid Leave Weeks": 16,
+      "Unpaid Weeks": 26,
+      "Total Payment": 9600
+    },
+    "issues": []
+  },
+  "into-maternity": {
+    "ok": true,
+    "output": {
+      "Expected Maternity Payment": 20000
+    },
+    "issues": []
+  },
+  "maternity-date": {
+    "ok": true,
+    "output": {
+      "Leave Start (days before due)": 14,
+      "Standard Duration": 26,
+      "Optional Extended": 16
+    },
+    "issues": []
+  },
+  "annual-leave": {
+    "ok": true,
+    "output": {
+      "Days Remaining": 10,
+      "Days to Carry Over": 10,
+      "Days to Use": 0
+    },
+    "issues": []
+  },
+  "holiday-pay": {
+    "ok": true,
+    "output": {
+      "Total Holiday Hours": 40,
+      "Holiday Pay (€)": 1000
+    },
+    "issues": []
+  },
+  "part-time-holiday-pay": {
+    "ok": true,
+    "output": {
+      "Pro-Rata Entitlement (days)": 10
+    },
+    "issues": []
+  },
+  "rent-allowance": {
+    "ok": true,
+    "output": {
+      "Estimated Allowance": 200,
+      "Assessable Income": 2800
+    },
+    "issues": []
+  },
+  "social-housing-rent": {
+    "ok": true,
+    "output": {
+      "Suggested Social Rent": 900,
+      "Rent %": "30%"
+    },
+    "issues": []
+  },
+  "annual-leave-pro-rata": {
+    "ok": true,
+    "output": {
+      "Months Employed": 6,
+      "Pro-Rata Leave Days": 10
+    },
+    "issues": []
+  },
+  "holiday-entitlements": {
+    "ok": true,
+    "output": {
+      "Entitlement Hours": 25,
+      "Entitlement Days": 3.13
+    },
+    "issues": []
+  },
+  "holiday-pay-accrual": {
+    "ok": true,
+    "output": {
+      "Total Accrued Hours": 40,
+      "Holiday Pay Owed (€)": 600
+    },
+    "issues": []
+  },
+  "part-time-holiday-pay-pro-rata": {
+    "ok": true,
+    "output": {
+      "Pro-Rata Ratio": "50.0%",
+      "Part-Time Entitlement (Days)": 10
+    },
+    "issues": []
+  },
+  "maternity-paternity-leave": {
+    "ok": true,
+    "output": {
+      "Weekly Statutory Payment (€)": 480,
+      "Total Leave Payment (€)": 12480,
+      "Leave Duration (Weeks)": 26
+    },
+    "issues": []
+  },
+  "rent-benefit-means-test": {
+    "ok": true,
+    "output": {
+      "Assessable Income": 2300,
+      "Benefit Reduction": 230,
+      "Rent Allowance (€)": 570
+    },
+    "issues": []
+  },
+  "social-housing-rent-calculated": {
+    "ok": true,
+    "output": {
+      "Monthly Income": 2500,
+      "Calculated Rent (€)": 750,
+      "Final Rent (€)": 750
+    },
+    "issues": []
+  },
+  "gpa-calculator": {
+    "ok": true,
+    "output": {
+      "GPA": 3.725,
+      "Total Credits": 20
+    },
+    "issues": []
+  },
+  "leaving-cert-points": {
+    "ok": true,
+    "output": {
+      "Total Points (6 best)": 462
+    },
+    "issues": []
+  },
+  "ucas-points": {
+    "ok": true,
+    "output": {
+      "UCAS Total": 144
+    },
+    "issues": []
+  },
+  "qqi-points": {
+    "ok": true,
+    "output": {
+      "Points Per Module": 50,
+      "Total Points": 400
+    },
+    "issues": []
+  },
+  "ects-calculator": {
+    "ok": true,
+    "output": {
+      "Total ECTS": 40
+    },
+    "issues": []
+  },
+  "ucd-gpa": {
+    "ok": true,
+    "output": {
+      "UCD-style GPA": 0.667,
+      "Total Credits": 30
+    },
+    "issues": []
+  },
+  "hpat-score": {
+    "ok": true,
+    "output": {
+      "HPAT Estimated Score": 90
+    },
+    "issues": []
+  },
+  "hpat-points": {
+    "ok": true,
+    "output": {
+      "Combined Points": 115
+    },
+    "issues": []
+  },
+  "degree-progress-calculator": {
+    "ok": true,
+    "output": {
+      "Progress (%)": 50,
+      "ECTS Earned": 90,
+      "ECTS Remaining": 90,
+      "Degree Type": "Bachelor"
+    },
+    "issues": []
+  },
+  "running-record": {
+    "ok": true,
+    "output": {
+      "Accuracy (%)": 95,
+      "Error Rate (1:x)": "1:20",
+      "Self-Correction Rate": 4,
+      "Words Correct Per Minute": 33
+    },
+    "issues": []
+  },
+  "a-level-ucas-points": {
+    "ok": true,
+    "output": {
+      "Total UCAS Points": 144,
+      "Number of A-Levels": 3,
+      "Average Per Subject": 48
+    },
+    "issues": []
+  },
+  "university-grade-percentage": {
+    "ok": true,
+    "output": {
+      "Overall Weighted Grade (%)": 83.43,
+      "Total Credits": 28
+    },
+    "issues": []
+  },
+  "university-qca": {
+    "ok": true,
+    "output": {
+      "QCA": 3.314,
+      "Total Credits": 28
+    },
+    "issues": []
+  },
+  "compound-interest": {
+    "ok": true,
+    "output": {
+      "Final Amount": 16470,
+      "Interest Earned": 6470
+    },
+    "issues": []
+  },
+  "investment-calculator": {
+    "ok": true,
+    "output": {
+      "Final Value": 199419,
+      "Total Invested": 110000,
+      "Capital Gains": 89419
+    },
+    "issues": []
+  },
+  "savings-calculator": {
+    "ok": true,
+    "output": {
+      "Total Saved": 31524,
+      "Contributed": 30000,
+      "Interest Earned": 1524
+    },
+    "issues": []
+  },
+  "critical-points": {
+    "ok": true,
+    "output": {
+      "Critical X": 1,
+      "Y Value": -1,
+      "Type": "Minimum"
+    },
+    "issues": []
+  },
+  "completing-the-square": {
+    "ok": true,
+    "output": {
+      "h (vertex x)": -3,
+      "k (vertex y)": -4,
+      "Form": "a(x--3.00)²+-4.00"
+    },
+    "issues": []
+  },
+  "simpsons-rule": {
+    "ok": true,
+    "output": {
+      "Approximate Integral": 1.4167,
+      "Interval Width": 0.5
+    },
+    "issues": []
+  },
+  "directional-derivative": {
+    "ok": true,
+    "output": {
+      "Directional Derivative": 5,
+      "Unit Vector Length": 1
+    },
+    "issues": []
+  },
+  "standard-deviation-casio": {
+    "ok": true,
+    "output": {
+      "Population σ": 14.1421,
+      "Sample s": 15.8114,
+      "Mean": 30
+    },
+    "issues": []
+  },
+  "titration": {
+    "ok": true,
+    "output": {
+      "Unknown Concentration": 0.125,
+      "Moles A": 0.0025,
+      "Moles B": 0.0025
+    },
+    "issues": []
+  },
+  "binomial-expansion": {
+    "ok": true,
+    "output": {
+      "(a+b)^n": 125,
+      "First Term (a^n)": 8,
+      "Last Term (b^n)": 27,
+      "Middle Terms": 90
+    },
+    "issues": []
+  },
+  "partial-fraction-decomposition": {
+    "ok": true,
+    "output": {
+      "Coefficient A": 16,
+      "Coefficient B": -11,
+      "Verification": "A/(x-r) + B/(x-s)"
+    },
+    "issues": []
+  },
+  "taylor-series": {
+    "ok": true,
+    "output": {
+      "Taylor Approximation": 1,
+      "Actual e^x": 2.718282,
+      "Error": 1.718282
+    },
+    "issues": []
+  },
+  "radius-of-convergence": {
+    "ok": true,
+    "output": {
+      "Ratio Test Limit": 1.75,
+      "Radius of Convergence": 0.5714,
+      "Interval": "(-0.57, 0.57)"
+    },
+    "issues": []
+  },
+  "fourier-transform": {
+    "ok": true,
+    "output": {
+      "Magnitude |F(ω)|": 5.5902,
+      "Real Part": 5,
+      "Imaginary Part": 0
+    },
+    "issues": []
+  },
+  "fourier-series": {
+    "ok": true,
+    "output": {
+      "f(T/4)": 2.5,
+      "Fundamental Frequency": 3.1416,
+      "Power": 1.8125
+    },
+    "issues": []
+  },
+  "laplace-transform": {
+    "ok": true,
+    "output": {
+      "L{k} = k/s": 2.5,
+      "L{e^t} = 1/(s-1)": 5,
+      "Time Domain": 0.676676
+    },
+    "issues": []
+  },
+  "inverse-laplace-transform": {
+    "ok": true,
+    "output": {
+      "f(t) = k*e^(at)": 36.9453,
+      "Inverse Coefficient": 5,
+      "F(s) Check": 2.5
+    },
+    "issues": []
+  },
+  "financial-personality": {
+    "ok": true,
+    "output": {
+      "Profile": "Growth Optimizer",
+      "Monthly Savings": 350,
+      "Priority": "Grow investments",
+      "Risk Level": "Moderate",
+      "Time Horizon": "Medium (3-7yr)",
+      "Emergency Fund Status": "3-6 months",
+      "Action Plan": "Diversify investments across bonds, stocks, and funds based on your medium risk tolerance.",
+      "Recommended Allocation": "Balanced: 50% bonds, 50% stocks"
+    },
+    "issues": []
+  },
+  "loan-repayment": {
+    "ok": true,
+    "output": {
+      "Loan Amount": 15000,
+      "Monthly Payment": 301,
+      "Total Payments": 18034,
+      "Total Interest": 3034,
+      "Years": 5
+    },
+    "issues": []
+  },
+  "casio-fx83gtx": {
+    "ok": true,
+    "output": {
+      "Display": "sin(45°) = 0.70710678",
+      "Result": 0.70710678
+    },
+    "issues": []
+  },
+  "casio-watch": {
+    "ok": true,
+    "output": {
+      "Expression": "99 × 11",
+      "Result": 1089
+    },
+    "issues": []
+  },
+  "programmable": {
+    "ok": true,
+    "output": {
+      "Operation Log": "RCL: 3.1400 × 25.00 = 78.5000",
+      "Stored Value": 3.14,
+      "Result": 78.5
+    },
+    "issues": []
+  },
+  "bra-size": {
+    "ok": true,
+    "output": {
+      "Underbust Size": 85,
+      "Bust Size": 95,
+      "Size Difference": 10,
+      "Estimated Size": "85AA"
+    },
+    "issues": []
+  },
+  "clarks-size": {
+    "ok": true,
+    "output": {
+      "Foot Length": 25,
+      "US Size": 66,
+      "EU Size": 98
+    },
+    "issues": []
+  },
+  "clarks-foot-gauge": {
+    "ok": true,
+    "output": {
+      "Foot Length (mm)": 245,
+      "Foot Length (cm)": 24.5,
+      "Foot Length (inches)": 9.65,
+      "Foot Width (mm)": 90,
+      "Foot Width (cm)": 9,
+      "Foot Width (inches)": 3.54,
+      "Category": "Men",
+      "Width Category": "Standard",
+      "Estimated Shoe Size (US)": 64
+    },
+    "issues": []
+  },
+  "clarks-foot-converter": {
+    "ok": true,
+    "output": {
+      "Centimeters": 25,
+      "Millimeters": 250,
+      "Inches": 9.84
+    },
+    "issues": []
+  },
+  "clarks-shoe-size": {
+    "ok": true,
+    "output": {
+      "Foot Length": 9,
+      "Unit": "cm",
+      "Category": "Men",
+      "UK Size": 3,
+      "US Size": 4.5,
+      "EU Size": 35
+    },
+    "issues": []
+  },
+  "vrt-calculator": {
+    "ok": true,
+    "output": {
+      "VRT Rate": "2.0%",
+      "VRT Amount": 600,
+      "Total Cost": 30600
+    },
+    "issues": []
+  },
+  "piab-injury": {
+    "ok": true,
+    "output": {
+      "Loss Level": "50%",
+      "Estimated Award": 12500
+    },
+    "issues": []
+  },
+  "injury-claim": {
+    "ok": true,
+    "output": {
+      "Total Components": 80000,
+      "After Legal Fees (est 15%)": 68000
+    },
+    "issues": []
+  },
+  "ex-gratia-redundancy": {
+    "ok": true,
+    "output": {
+      "Redundancy Payment": 3000,
+      "Per Year Avg": 300
+    },
+    "issues": []
+  },
+  "leaving-ireland-tax": {
+    "ok": true,
+    "output": {
+      "Pro-Rata Gross": 32877,
+      "Final Liability (est)": 10849,
+      "Potential Refund": 4151
+    },
+    "issues": []
+  },
+  "capital-gains-tax": {
+    "ok": true,
+    "output": {
+      "Chargeable Gain": 67300,
+      "CGT Due": 22209
+    },
+    "issues": []
+  },
+  "au-pair-ireland-salary": {
+    "ok": true,
+    "output": {
+      "Annual Pay": 12480,
+      "Monthly Pay": 1040
+    },
+    "issues": []
+  },
+  "one-parent-family": {
+    "ok": true,
+    "output": {
+      "Base Payment": 70,
+      "Income Over Threshold": 200,
+      "Reduction": 100,
+      "Estimated Weekly Payment": 0
+    },
+    "issues": []
+  },
+  "job-share-salary": {
+    "ok": true,
+    "output": {
+      "Your Weekly Salary": 512.82,
+      "Your FTE %": 51.28
+    },
+    "issues": []
+  },
+  "marginal-tax-rate": {
+    "ok": true,
+    "output": {
+      "Marginal Tax Rate": 0.04,
+      "Effective Cost Change": 10
+    },
+    "issues": []
+  },
+  "income-tax": {
+    "ok": true,
+    "output": {
+      "Taxable Income": 50000,
+      "Tax Due": 9340
+    },
+    "issues": []
+  },
+  "usc-calculator": {
+    "ok": true,
+    "output": {
+      "Total USC": 1394
+    },
+    "issues": []
+  },
+  "prsi-calculator": {
+    "ok": true,
+    "output": {
+      "PRSI Weekly": 24,
+      "Earnings used": 600
+    },
+    "issues": []
+  },
+  "marginal-cost": {
+    "ok": true,
+    "output": {
+      "Total Cost": 15000,
+      "Average Cost": 15,
+      "Marginal Cost": 5
+    },
+    "issues": []
+  },
+  "ebitda": {
+    "ok": true,
+    "output": {
+      "EBITDA": 53000
+    },
+    "issues": []
+  },
+  "diageo-share-price": {
+    "ok": true,
+    "output": {
+      "Current Value": 3500,
+      "Projected Value": 4000,
+      "Change %": 14.29
+    },
+    "issues": []
+  },
+  "dhl-price": {
+    "ok": true,
+    "output": {
+      "Estimated Cost": 13
+    },
+    "issues": []
+  },
+  "dhl-customs-duty": {
+    "ok": true,
+    "output": {
+      "Customs Duty": 5,
+      "VAT on Import": 24,
+      "Total": 129
+    },
+    "issues": []
+  },
+  "tax-calculator-denmark": {
+    "ok": true,
+    "output": {
+      "Estimated Tax": 18500,
+      "Net Income": 31500
+    },
+    "issues": []
+  },
+  "dividend-tax-ireland": {
+    "ok": true,
+    "output": {
+      "Dividend Tax": 330,
+      "Net Dividend": 670,
+      "Total Taxable (est)": 31000
+    },
+    "issues": []
+  },
+  "airbnb-tax-ireland": {
+    "ok": true,
+    "output": {
+      "Taxable Income": 14000,
+      "Estimated Tax": 2800,
+      "Net Revenue": 17200
+    },
+    "issues": []
+  },
+  "inheritance-tax-ireland": {
+    "ok": true,
+    "output": {
+      "Taxable Amount": 165000,
+      "Inheritance Tax": 54450
+    },
+    "issues": []
+  },
+  "slimming-syns": {
+    "ok": true,
+    "output": {
+      "Syns per Item": 9.5,
+      "Total Syns": 9.5
+    },
+    "issues": []
+  },
+  "safefood-turkey": {
+    "ok": true,
+    "output": {
+      "Cook Time (mins)": 240,
+      "Rest Time (mins)": 20,
+      "Total Time (mins)": 260
+    },
+    "issues": []
+  },
+  "pregnancy-calculator": {
+    "ok": true,
+    "output": {
+      "Days": 0,
+      "Weeks": 10,
+      "Months": 2,
+      "Estimated Due Week": 40
+    },
+    "issues": []
+  },
+  "ovulation-calculator": {
+    "ok": true,
+    "output": {
+      "Ovulation Day (cycle)": 14,
+      "Fertile Window (days)": "9-15",
+      "Next Ovulation in (days)": 0
+    },
+    "issues": []
+  },
+  "rotunda-due-date": {
+    "ok": true,
+    "output": {
+      "Estimated Due In (weeks)": 30,
+      "Days Remaining": 210,
+      "Rotunda Note": "Using LMP"
+    },
+    "issues": []
+  },
+  "petrol-calculator-ireland": {
+    "ok": true,
+    "output": {
+      "Litres Needed": 6.5,
+      "Estimated Cost": 11.05
+    },
+    "issues": []
+  },
+  "fuel-calculator-ireland": {
+    "ok": true,
+    "output": {
+      "Litres": 14,
+      "Cost (€)": 23.8
+    },
+    "issues": []
+  },
+  "electricity-bill-ireland": {
+    "ok": true,
+    "output": {
+      "Energy Cost": 120,
+      "Standing Charge": 6,
+      "Total Bill": 126
+    },
+    "issues": []
+  },
+  "gas-bill-ireland": {
+    "ok": true,
+    "output": {
+      "Energy Cost": 60,
+      "Standing Charge": 5,
+      "Total Bill": 65
+    },
+    "issues": []
+  },
+  "kwh-cost-ireland": {
+    "ok": true,
+    "output": {
+      "kWh Used": 2,
+      "Cost (€)": 0.6
+    },
+    "issues": []
+  },
+  "heat-pump-cost-ireland": {
+    "ok": true,
+    "output": {
+      "Install Cost": 24000,
+      "Estimated Annual Saving": 800,
+      "Payback Years": 30
+    },
+    "issues": []
+  },
+  "btu-calculator-ireland": {
+    "ok": true,
+    "output": {
+      "Room Volume (m³)": 30,
+      "BTU Required": 10110
+    },
+    "issues": []
+  },
+  "nox-calculator-ireland": {
+    "ok": true,
+    "output": {
+      "NOx Emissions (g)": 500
+    },
+    "issues": []
+  },
+  "stocking-rate-calculator": {
+    "ok": true,
+    "output": {
+      "Total Forage (t)": 80,
+      "Stocking Rate (animals)": 40
+    },
+    "issues": []
+  },
+  "nitrates-calculator": {
+    "ok": true,
+    "output": {
+      "Total N (kg)": 8500,
+      "N Loading (kg/ha)": 850
+    },
+    "issues": []
+  },
+  "sheep-gestation": {
+    "ok": true,
+    "output": {
+      "Gestation Days": 147,
+      "Days Remaining": 97
+    },
+    "issues": []
+  },
+  "mare-gestation": {
+    "ok": true,
+    "output": {
+      "Gestation Days": 340,
+      "Days Remaining": 240
+    },
+    "issues": []
+  },
+  "calving-calculator": {
+    "ok": true,
+    "output": {
+      "Gestation Days": 283,
+      "Days Remaining": 83
+    },
+    "issues": []
+  },
+  "expenses-calculator-ireland": {
+    "ok": true,
+    "output": {
+      "Total per Event": 250,
+      "Annual Total": 3000
+    },
+    "issues": []
+  },
+  "gaa-age-calculator": {
+    "ok": true,
+    "output": {
+      "Age": 21
+    },
+    "issues": []
+  },
+  "community-games-age": {
+    "ok": true,
+    "output": {
+      "Age at Competition": 11
+    },
+    "issues": []
+  },
+  "dog-heat-cycle": {
+    "ok": true,
+    "output": {
+      "Current Phase (days into cycle)": 60,
+      "Next Heat in (days)": 120
+    },
+    "issues": []
+  },
+  "non-programmable": {
+    "ok": true,
+    "output": {
+      "Result": 1764
+    },
+    "issues": []
+  },
+  "scientific-general": {
+    "ok": true,
+    "output": {
+      "Result": 0.5
+    },
+    "issues": []
+  },
+  "casio-reset-guide": {
+    "ok": true,
+    "output": {
+      "Guide": "1. Locate RESET button (usually on back/side)",
+      "Step 2": "2. Press and hold for 3-5 seconds",
+      "Step 3": "3. Display will show All Clear or similar",
+      "Step 4": "4. Memory and settings have been reset",
+      "Note": "Refer to your specific Casio model manual"
+    },
+    "issues": []
+  }
+}

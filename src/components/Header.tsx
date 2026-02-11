@@ -33,14 +33,14 @@ export function Header() {
           <Link to="/" className={navLinkClass("/")}>Home</Link>
           <Link to="/about" className={navLinkClass("/about")}>About Us</Link>
 
-          {/* Mega menu trigger */}
+          {/* Mega menu trigger - Categories only */}
           <div
             className="relative"
             onMouseEnter={() => setMegaOpen(true)}
             onMouseLeave={() => setMegaOpen(false)}
           >
-            <button className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary ${location.pathname.startsWith("/calculators") ? "text-primary" : "text-foreground"}`}>
-              Our Calculators <ChevronDown className={`h-4 w-4 transition-transform ${megaOpen ? "rotate-180" : ""}`} />
+            <button className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary ${location.pathname.startsWith("/calculators") || location.pathname.startsWith("/category") ? "text-primary" : "text-foreground"}`}>
+              Categories <ChevronDown className={`h-4 w-4 transition-transform ${megaOpen ? "rotate-180" : ""}`} />
             </button>
 
             <AnimatePresence>
@@ -50,30 +50,23 @@ export function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute left-1/2 -translate-x-1/2 top-full pt-2"
+                  className="absolute left-0 top-full pt-2"
                 >
-                  <div className="w-[700px] rounded-xl border bg-card shadow-xl p-6 grid grid-cols-3 gap-6">
-                    {categories.map((cat) => (
-                      <div key={cat.id}>
-                        <div className="flex items-center gap-2 mb-3">
-                          <cat.icon className="h-4 w-4 text-primary" />
-                          <span className="font-semibold text-sm text-foreground">{cat.name}</span>
-                        </div>
-                        <ul className="space-y-1.5">
-                          {cat.calculators.map((calc) => (
-                            <li key={calc.id}>
-                              <Link
-                                to={calc.path}
-                                className="block text-sm text-muted-foreground hover:text-primary transition-colors"
-                                onClick={() => setMegaOpen(false)}
-                              >
-                                {calc.name}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
+                  <div className="rounded-xl border bg-card shadow-xl p-4">
+                    <ul className="space-y-2 min-w-max">
+                      {categories.map((cat) => (
+                        <li key={cat.id}>
+                          <Link
+                            to={`/category/${cat.id}`}
+                            className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-primary hover:bg-accent transition-colors"
+                            onClick={() => setMegaOpen(false)}
+                          >
+                            <cat.icon className="h-4 w-4" />
+                            {cat.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </motion.div>
               )}
@@ -99,31 +92,37 @@ export function Header() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="lg:hidden border-t bg-card overflow-hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.15 }}
+            className="lg:hidden border-t bg-card"
           >
-            <div className="container py-4 space-y-4">
-              <SmartSearch variant="header" onSelect={() => setMobileOpen(false)} />
-              <nav className="flex flex-col gap-3">
-                <Link to="/" className={navLinkClass("/")} onClick={() => setMobileOpen(false)}>Home</Link>
-                <Link to="/about" className={navLinkClass("/about")} onClick={() => setMobileOpen(false)}>About Us</Link>
-                <Link to="/dashboard" className={navLinkClass("/dashboard")} onClick={() => setMobileOpen(false)}>Analytics</Link>
-                {categories.map((cat) => (
-                  <div key={cat.id}>
-                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{cat.name}</span>
-                    <div className="ml-3 mt-1 flex flex-col gap-1.5">
-                      {cat.calculators.map((calc) => (
-                        <Link key={calc.id} to={calc.path} className="text-sm text-foreground hover:text-primary" onClick={() => setMobileOpen(false)}>
-                          {calc.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-                <Link to="/contact" className={navLinkClass("/contact")} onClick={() => setMobileOpen(false)}>Contact Us</Link>
-              </nav>
+            <div className="container py-4 space-y-3">
+              <Link to="/" className="block px-4 py-2 text-sm font-medium hover:text-primary transition-colors">Home</Link>
+              <Link to="/about" className="block px-4 py-2 text-sm font-medium hover:text-primary transition-colors">About Us</Link>
+              
+              {/* Mobile Categories */}
+              <div className="px-4 py-2">
+                <p className="text-sm font-medium mb-2">Categories</p>
+                <ul className="space-y-2 ml-2">
+                  {categories.map((cat) => (
+                    <li key={cat.id}>
+                      <Link
+                        to={`/category/${cat.id}`}
+                        className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        <cat.icon className="h-4 w-4" />
+                        {cat.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <Link to="/dashboard" className="block px-4 py-2 text-sm font-medium hover:text-primary transition-colors">Analytics</Link>
+              <Link to="/contact" className="block px-4 py-2 text-sm font-medium hover:text-primary transition-colors">Contact Us</Link>
             </div>
           </motion.div>
         )}

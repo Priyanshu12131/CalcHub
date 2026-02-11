@@ -40,21 +40,6 @@ export function SmartSearch({ variant = "hero", onSelect }: SmartSearchProps) {
     onSelect?.();
   }
 
-  function handleKeyDown(e: React.KeyboardEvent) {
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setSelectedIndex((i) => Math.min(i + 1, results.length - 1));
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setSelectedIndex((i) => Math.max(i - 1, 0));
-    } else if (e.key === "Enter" && selectedIndex >= 0) {
-      e.preventDefault();
-      handleSelect(results[selectedIndex]);
-    } else if (e.key === "Escape") {
-      setOpen(false);
-    }
-  }
-
   const isHero = variant === "hero";
 
   return (
@@ -70,7 +55,20 @@ export function SmartSearch({ variant = "hero", onSelect }: SmartSearchProps) {
           value={query}
           onChange={(e) => { setQuery(e.target.value); setOpen(true); }}
           onFocus={() => setOpen(true)}
-          onKeyDown={handleKeyDown}
+          onKeyDown={(e) => {
+            if (e.key === "ArrowDown") {
+              e.preventDefault();
+              setSelectedIndex((i) => Math.min(i + 1, results.length - 1));
+            } else if (e.key === "ArrowUp") {
+              e.preventDefault();
+              setSelectedIndex((i) => Math.max(i - 1, 0));
+            } else if (e.key === "Enter" && selectedIndex >= 0) {
+              e.preventDefault();
+              handleSelect(results[selectedIndex]);
+            } else if (e.key === "Escape") {
+              setOpen(false);
+            }
+          }}
           placeholder="Search calculators... e.g. mortgage, GPA, salary"
           className="flex-1 bg-transparent outline-none placeholder:text-muted-foreground"
         />

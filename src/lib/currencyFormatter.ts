@@ -11,7 +11,12 @@ export function formatCurrency(value: number, currencyCode: string, locale: stri
       useGrouping: false // This removes thousand separators
     });
     
-    return formatter.format(value);
+    let formatted = formatter.format(value);
+    
+    // Replace comma decimal separator with dot
+    formatted = formatted.replace(',', '.');
+    
+    return formatted;
   } catch (e) {
     // Fallback: simple formatting with 2 decimal places
     return `${currencyCode} ${value.toFixed(2)}`;

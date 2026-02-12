@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import CurrencySelector from "./CurrencySelector";
+import { useCurrency } from "../hooks/useCurrency";
 
 /* ==================== FINANCIAL PERSONALITY CALCULATOR ==================== */
 export const FinancialPersonalityCalculator: React.FC = () => {
@@ -16,6 +18,8 @@ export const FinancialPersonalityCalculator: React.FC = () => {
 
   const [result, setResult] = useState<Record<string, any> | null>(null);
 
+  const { selectedCountry, format, convertFromBase } = useCurrency();
+
   const handleCalculate = () => {
     const monthlyIncome = inputs.income / 12;
     const monthlySavings = monthlyIncome * (inputs.savingsPercent / 100);
@@ -31,10 +35,12 @@ export const FinancialPersonalityCalculator: React.FC = () => {
 
     if (inputs.priority === 1) {
       profile = "Debt Elimination Focus";
-      actionPlan = `Focus on paying down £${Math.round(inputs.debt)} debt. Consider increasing savings to accelerate payoff.`;
+      const debtConverted = convertFromBase(Math.round(inputs.debt), selectedCountry.currency.code);
+      actionPlan = `Focus on paying down ${format(debtConverted)} debt. Consider increasing savings to accelerate payoff.`;
     } else if (inputs.priority === 2) {
       profile = "Security-First Approach";
-      actionPlan = `Build 3-6 months emergency fund first (£${Math.round(monthlyIncome * 4.5)}). This cushions financial shocks.`;
+      const emergencyConverted = convertFromBase(Math.round(monthlyIncome * 4.5), selectedCountry.currency.code);
+      actionPlan = `Build 3-6 months emergency fund first (${format(emergencyConverted)}). This cushions financial shocks.`;
     } else if (inputs.priority === 3) {
       profile = "Growth Optimizer";
       actionPlan = "Diversify investments across bonds, stocks, and funds based on your medium risk tolerance.";
@@ -52,11 +58,12 @@ export const FinancialPersonalityCalculator: React.FC = () => {
 
     setResult({
       Profile: profile,
-      "Monthly Savings": Math.round(monthlySavings),
+      "Monthly Savings": format(convertFromBase(Math.round(monthlySavings), selectedCountry.currency.code)),
       Priority: priorityLabels[inputs.priority - 1],
       "Risk Level": riskLabels[inputs.riskTolerance - 1],
       "Time Horizon": horizonLabels[inputs.horizon - 1],
       "Emergency Fund Status": emergencyFundTargets[inputs.emergencyFund - 1],
+      "Outstanding Debt": format(convertFromBase(Math.round(inputs.debt), selectedCountry.currency.code)),
       "Action Plan": actionPlan,
       "Recommended Allocation": recommendation,
     });
@@ -81,13 +88,20 @@ export const FinancialPersonalityCalculator: React.FC = () => {
               className="border border-gray-300 rounded px-2 py-1 text-xs"
             />
 
-            <label className="text-xs text-gray-600">Annual Net Income (£)</label>
-            <input
-              type="number"
-              value={inputs.income}
-              onChange={(e) => setInputs({ ...inputs, income: parseInt(e.target.value) })}
-              className="border border-gray-300 rounded px-2 py-1 text-xs"
-            />
+            <label className="text-xs text-gray-600">Annual Net Income</label>
+            <div className="flex gap-2">
+              <input
+                type="number"
+                value={inputs.income}
+                onChange={(e) => {
+                  setInputs({ ...inputs, income: parseInt(e.target.value || "0") });
+                  handleCalculate();
+                }}
+                placeholder={selectedCountry.currency.symbol + "0"}
+                className="border border-gray-300 rounded px-2 py-1 text-xs flex-1"
+              />
+              <CurrencySelector />
+            </div>
 
             <label className="text-xs text-gray-600">Monthly Savings (%)</label>
             <input
@@ -97,13 +111,20 @@ export const FinancialPersonalityCalculator: React.FC = () => {
               className="border border-gray-300 rounded px-2 py-1 text-xs"
             />
 
-            <label className="text-xs text-gray-600">Outstanding Debt (£)</label>
-            <input
-              type="number"
-              value={inputs.debt}
-              onChange={(e) => setInputs({ ...inputs, debt: parseInt(e.target.value) })}
-              className="border border-gray-300 rounded px-2 py-1 text-xs"
-            />
+            <label className="text-xs text-gray-600">Outstanding Debt</label>
+            <div className="flex gap-2">
+              <input
+                type="number"
+                value={inputs.debt}
+                onChange={(e) => {
+                  setInputs({ ...inputs, debt: parseInt(e.target.value || "0") });
+                  handleCalculate();
+                }}
+                placeholder={selectedCountry.currency.symbol + "0"}
+                className="border border-gray-300 rounded px-2 py-1 text-xs flex-1"
+              />
+              <CurrencySelector />
+            </div>
           </div>
 
           {/* Multi-choice sections */}
@@ -224,6 +245,8 @@ export const LoanRepaymentCalculator: React.FC = () => {
 
   const [result, setResult] = useState<Record<string, any> | null>(null);
 
+  const { selectedCountry, format, convertFromBase } = useCurrency();
+
   const handleCalculate = () => {
     const monthlyRate = inputs.rate / 100 / 12;
     const numPayments = inputs.years * 12;
@@ -241,10 +264,10 @@ export const LoanRepaymentCalculator: React.FC = () => {
     const totalInterest = totalPayment - inputs.amount;
 
     setResult({
-      "Loan Amount": `€${Math.round(inputs.amount)}`,
-      "Monthly Payment": `€${Math.round(monthlyPayment)}`,
-      "Total Payments": `€${Math.round(totalPayment)}`,
-      "Total Interest": `€${Math.round(totalInterest)}`,
+      "Loan Amount": format(convertFromBase(Math.round(inputs.amount), selectedCountry.currency.code)),
+      "Monthly Payment": format(convertFromBase(Math.round(monthlyPayment), selectedCountry.currency.code)),
+      "Total Payments": format(convertFromBase(Math.round(totalPayment), selectedCountry.currency.code)),
+      "Total Interest": format(convertFromBase(Math.round(totalInterest), selectedCountry.currency.code)),
       "Tenor": `${inputs.years} years (${numPayments} months)`,
     });
   };
@@ -258,13 +281,21 @@ export const LoanRepaymentCalculator: React.FC = () => {
 
         <div className="space-y-3 bg-white p-4 rounded border border-teal-200">
           <div className="grid grid-cols-2 gap-3">
-            <label className="text-xs text-gray-600">Loan Amount (€)</label>
-            <input
-              type="number"
-              value={inputs.amount}
-              onChange={(e) => setInputs({ ...inputs, amount: parseInt(e.target.value) })}
-              className="border border-gray-300 rounded px-2 py-1 text-xs"
-            />
+            <label className="text-xs text-gray-600">Loan Amount</label>
+            <div className="flex gap-2">
+              <input
+                type="number"
+                value={inputs.amount}
+                onChange={(e) => {
+                  setInputs({ ...inputs, amount: parseInt(e.target.value || "0") });
+                  // live recalc
+                  setTimeout(handleCalculate, 0);
+                }}
+                placeholder={selectedCountry.currency.symbol + "0"}
+                className="border border-gray-300 rounded px-2 py-1 text-xs flex-1"
+              />
+              <CurrencySelector />
+            </div>
 
             <label className="text-xs text-gray-600">Interest Rate (%)</label>
             <input

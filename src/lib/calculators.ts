@@ -36,7 +36,7 @@ export type Category = {
 export const calculatorLogic: Record<string, CalculatorLogic> = {
   mortgage: {
     inputs: [
-      { id: "amount", label: "Property Price", min: 500000, max: 20000000, step: 50000, default: 3000000, suffix: "₹" },
+      { id: "amount", label: "Property Price", min: 500000, max: 20000000, step: 50000, default: 3000000 },
       { id: "rate", label: "Interest Rate (%)", min: 5, max: 15, step: 0.1, default: 8.5 },
       { id: "years", label: "Loan Term (Years)", min: 5, max: 30, step: 1, default: 20 },
     ],
@@ -54,7 +54,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   loan: {
     inputs: [
-      { id: "amount", label: "Loan Amount", min: 10000, max: 5000000, step: 10000, default: 500000, suffix: "₹" },
+      { id: "amount", label: "Loan Amount", min: 10000, max: 5000000, step: 10000, default: 500000 },
       { id: "rate", label: "Interest Rate (%)", min: 6, max: 25, step: 0.1, default: 11 },
       { id: "months", label: "Tenure (Months)", min: 6, max: 120, step: 1, default: 36 },
     ],
@@ -70,7 +70,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   vat: {
     inputs: [
-      { id: "amount", label: "Net Amount", min: 0, max: 1000000, step: 100, default: 10000, suffix: "₹" },
+      { id: "amount", label: "Net Amount", min: 0, max: 1000000, step: 100, default: 10000 },
       { id: "rate", label: "VAT Rate (%)", min: 0, max: 30, step: 0.5, default: 20 },
     ],
     calculate: ({ amount, rate }) => {
@@ -84,7 +84,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "tax-calculator": {
     inputs: [
-      { id: "gross", label: "Gross Income (Annual €)", min: 0, max: 500000, step: 5000, default: 50000 },
+      { id: "gross", label: "Gross Income (Annual)", min: 0, max: 500000, step: 5000, default: 50000 },
     ],
     calculate: ({ gross }) => {
       const taxableIncome = Math.max(0, gross - 12570);
@@ -95,7 +95,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "salary-deductions": {
     inputs: [
-      { id: "gross", label: "Gross Salary (€)", min: 0, max: 200000, step: 1000, default: 40000 },
+      { id: "gross", label: "Gross Salary", min: 0, max: 200000, step: 1000, default: 40000 },
     ],
     calculate: ({ gross }) => {
       const tax = Math.round(gross * 0.205);
@@ -108,7 +108,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "take-home-pay": {
     inputs: [
-      { id: "gross", label: "Gross Annual (€)", min: 0, max: 300000, step: 5000, default: 50000 },
+      { id: "gross", label: "Gross Annual", min: 0, max: 300000, step: 5000, default: 50000 },
     ],
     calculate: ({ gross }) => {
       const deductions = Math.round(gross * 0.335);
@@ -119,7 +119,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "car-loan": {
     inputs: [
-      { id: "amount", label: "Loan Amount (€)", min: 1000, max: 100000, step: 500, default: 25000, suffix: "€" },
+      { id: "amount", label: "Loan Amount", min: 1000, max: 100000, step: 500, default: 25000 },
       { id: "rate", label: "Interest Rate (% per year)", min: 1, max: 20, step: 0.1, default: 5.5 },
       { id: "years", label: "Loan Term (years)", min: 1, max: 10, step: 1, default: 5 },
     ],
@@ -140,7 +140,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "car-finance": {
     inputs: [
-      { id: "price", label: "Vehicle Price (€)", min: 5000, max: 150000, step: 1000, default: 35000 },
+      { id: "price", label: "Vehicle Price", min: 5000, max: 150000, step: 1000, default: 35000 },
       { id: "deposit", label: "Deposit %", min: 10, max: 50, step: 5, default: 20 },
       { id: "rate", label: "APR (%)", min: 2, max: 10, step: 0.1, default: 4.9 },
       { id: "months", label: "Months", min: 12, max: 84, step: 6, default: 60 },
@@ -156,7 +156,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "credit-union-loan": {
     inputs: [
-      { id: "amount", label: "Loan Amount (€)", min: 1000, max: 50000, step: 500, default: 10000 },
+      { id: "amount", label: "Loan Amount", min: 1000, max: 50000, step: 500, default: 10000 },
       { id: "rate", label: "Interest Rate (%)", min: 4, max: 15, step: 0.5, default: 7 },
       { id: "months", label: "Loan Term (Months)", min: 6, max: 120, step: 6, default: 36 },
     ],
@@ -169,7 +169,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "credit-union-mortgage": {
     inputs: [
-      { id: "price", label: "Property Price (€)", min: 100000, max: 1000000, step: 10000, default: 400000 },
+      { id: "price", label: "Property Price", min: 100000, max: 1000000, step: 10000, default: 400000 },
       { id: "rate", label: "Interest Rate (%)", min: 2, max: 8, step: 0.1, default: 3.5 },
       { id: "years", label: "Term (Years)", min: 5, max: 40, step: 1, default: 25 },
     ],
@@ -183,8 +183,8 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "buy-to-let": {
     inputs: [
-      { id: "price", label: "Property Price (€)", min: 100000, max: 2000000, step: 20000, default: 500000 },
-      { id: "rent", label: "Expected Monthly Rent (€)", min: 500, max: 10000, step: 100, default: 1500 },
+      { id: "price", label: "Property Price", min: 100000, max: 2000000, step: 20000, default: 500000 },
+      { id: "rent", label: "Expected Monthly Rent", min: 500, max: 10000, step: 100, default: 1500 },
       { id: "rate", label: "Interest Rate (%)", min: 2, max: 8, step: 0.1, default: 3.8 },
       { id: "years", label: "Loan Term (Years)", min: 5, max: 35, step: 1, default: 20 },
     ],
@@ -202,7 +202,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "pension-defined-benefit": {
     inputs: [
-      { id: "finalSalary", label: "Final/Avg Salary (€)", min: 0, max: 1000000, step: 1000, default: 60000 },
+      { id: "finalSalary", label: "Final/Avg Salary", min: 0, max: 1000000, step: 1000, default: 60000 },
       { id: "yearsService", label: "Years of Service", min: 0, max: 60, step: 1, default: 30 },
       { id: "accrualRate", label: "Accrual Rate (%)", min: 0.1, max: 5, step: 0.01, default: 1.25 },
     ],
@@ -215,8 +215,8 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "pension-defined-contribution": {
     inputs: [
-      { id: "pot", label: "Current Pot (€)", min: 0, max: 5000000, step: 100, default: 50000 },
-      { id: "monthly", label: "Monthly Contribution (€)", min: 0, max: 20000, step: 10, default: 500 },
+      { id: "pot", label: "Current Pot", min: 0, max: 5000000, step: 100, default: 50000 },
+      { id: "monthly", label: "Monthly Contribution", min: 0, max: 20000, step: 10, default: 500 },
       { id: "years", label: "Years to Retirement", min: 0, max: 60, step: 1, default: 30 },
       { id: "return", label: "Expected Annual Return (%)", min: 0, max: 20, step: 0.1, default: 5 },
     ],
@@ -233,7 +233,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "annuity": {
     inputs: [
-      { id: "pot", label: "Pension Pot (€)", min: 0, max: 5000000, step: 100, default: 200000 },
+      { id: "pot", label: "Pension Pot", min: 0, max: 5000000, step: 100, default: 200000 },
       { id: "rate", label: "Annuity Rate (%)", min: 0.1, max: 20, step: 0.1, default: 5 },
     ],
     calculate: ({ pot, rate }) => {
@@ -245,8 +245,8 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
   "pension-max-funding": {
     inputs: [
       { id: "age", label: "Age", min: 16, max: 100, step: 1, default: 45 },
-      { id: "salary", label: "Gross Annual Salary (€)", min: 0, max: 2000000, step: 1000, default: 60000 },
-      { id: "existing", label: "Existing Pension Contributions (€)", min: 0, max: 2000000, step: 100, default: 5000 },
+      { id: "salary", label: "Gross Annual Salary", min: 0, max: 2000000, step: 1000, default: 60000 },
+      { id: "existing", label: "Existing Pension Contributions", min: 0, max: 2000000, step: 100, default: 5000 },
     ],
     calculate: ({ age, salary, existing }) => {
       let pct = 0.15;
@@ -264,10 +264,10 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "pension-single-scheme": {
     inputs: [
-      { id: "careerAvg", label: "Career-average Salary (€)", min: 0, max: 2000000, step: 1000, default: 50000 },
       { id: "years", label: "Total Service (Years)", min: 0, max: 60, step: 1, default: 30 },
       { id: "accrual", label: "Accrual Rate (%)", min: 0.1, max: 5, step: 0.01, default: 0.58 },
-      { id: "lump", label: "Lump Sum (€)", min: 0, max: 2000000, step: 100, default: 0 },
+      { id: "careerAvg", label: "Career-average Salary", min: 0, max: 2000000, step: 1000, default: 50000 },
+      { id: "lump", label: "Lump Sum", min: 0, max: 2000000, step: 100, default: 0 },
     ],
     calculate: ({ careerAvg, years, accrual, lump }) => {
       const rate = accrual / 100;
@@ -280,7 +280,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "aib-business-loan": {
     inputs: [
-      { id: "amount", label: "Loan Amount (€)", min: 1000, max: 500000, step: 500, default: 50000 },
+      { id: "amount", label: "Loan Amount", min: 1000, max: 500000, step: 500, default: 50000 },
       { id: "rate", label: "Interest Rate (% p.a.)", min: 2, max: 12, step: 0.1, default: 5.5 },
       { id: "years", label: "Loan Term (Years)", min: 1, max: 10, step: 1, default: 5 },
     ],
@@ -294,7 +294,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "permanent-tsb-loan": {
     inputs: [
-      { id: "amount", label: "Loan Amount (€)", min: 1000, max: 500000, step: 500, default: 40000 },
+      { id: "amount", label: "Loan Amount", min: 1000, max: 500000, step: 500, default: 40000 },
       { id: "rate", label: "Interest Rate (% p.a.)", min: 2, max: 12, step: 0.1, default: 5.2 },
       { id: "years", label: "Loan Term (Years)", min: 1, max: 10, step: 1, default: 5 },
     ],
@@ -308,7 +308,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "bank-of-ireland-loan": {
     inputs: [
-      { id: "amount", label: "Loan Amount (€)", min: 1000, max: 500000, step: 500, default: 50000 },
+      { id: "amount", label: "Loan Amount", min: 1000, max: 500000, step: 500, default: 50000 },
       { id: "rate", label: "Annual Rate (%)", min: 2, max: 12, step: 0.1, default: 5.8 },
       { id: "months", label: "Loan Term (Months)", min: 6, max: 120, step: 6, default: 60 },
     ],
@@ -321,7 +321,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "hsscu-loan": {
     inputs: [
-      { id: "amount", label: "Loan Amount (€)", min: 500, max: 30000, step: 100, default: 8000 },
+      { id: "amount", label: "Loan Amount", min: 500, max: 30000, step: 100, default: 8000 },
       { id: "rate", label: "Interest Rate (%)", min: 4, max: 12, step: 0.5, default: 6.5 },
       { id: "years", label: "Loan Term (Years)", min: 1, max: 7, step: 1, default: 3 },
     ],
@@ -335,7 +335,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "spry-finance": {
     inputs: [
-      { id: "amount", label: "Finance Amount (€)", min: 1000, max: 100000, step: 500, default: 25000 },
+      { id: "amount", label: "Finance Amount", min: 1000, max: 100000, step: 500, default: 25000 },
       { id: "rate", label: "APR (%)", min: 4.9, max: 15, step: 0.1, default: 8.5 },
       { id: "months", label: "Term (Months)", min: 12, max: 84, step: 1, default: 48 },
     ],
@@ -348,7 +348,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "farm-loan": {
     inputs: [
-      { id: "amount", label: "Loan Amount (€)", min: 5000, max: 500000, step: 1000, default: 100000 },
+      { id: "amount", label: "Loan Amount", min: 5000, max: 500000, step: 1000, default: 100000 },
       { id: "rate", label: "Interest Rate (% p.a.)", min: 2, max: 10, step: 0.1, default: 4.5 },
       { id: "years", label: "Loan Term (Years)", min: 1, max: 20, step: 1, default: 10 },
     ],
@@ -362,9 +362,9 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "vw-pcp": {
     inputs: [
-      { id: "price", label: "Car Price (€)", min: 10000, max: 100000, step: 1000, default: 40000 },
-      { id: "deposit", label: "Deposit (€)", min: 2000, max: 30000, step: 500, default: 8000 },
-      { id: "balloon", label: "Guaranteed Future Value (€)", min: 5000, max: 50000, step: 1000, default: 18000 },
+      { id: "price", label: "Car Price", min: 10000, max: 100000, step: 1000, default: 40000 },
+      { id: "deposit", label: "Deposit", min: 2000, max: 30000, step: 500, default: 8000 },
+      { id: "balloon", label: "Guaranteed Future Value", min: 5000, max: 50000, step: 1000, default: 18000 },
       { id: "rate", label: "Interest Rate (%)", min: 2, max: 8, step: 0.1, default: 4.5 },
       { id: "months", label: "Term (Months)", min: 24, max: 60, step: 6, default: 48 },
     ],
@@ -378,7 +378,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "audi-loan": {
     inputs: [
-      { id: "price", label: "Vehicle Price (€)", min: 15000, max: 150000, step: 1000, default: 50000 },
+      { id: "price", label: "Vehicle Price", min: 15000, max: 150000, step: 1000, default: 50000 },
       { id: "deposit", label: "Deposit %", min: 10, max: 50, step: 5, default: 20 },
       { id: "rate", label: "Interest Rate (%)", min: 2.9, max: 8, step: 0.1, default: 4.9 },
       { id: "years", label: "Loan Term (Years)", min: 1, max: 7, step: 1, default: 5 },
@@ -395,8 +395,8 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "kia-loan": {
     inputs: [
-      { id: "price", label: "Vehicle Price (€)", min: 10000, max: 80000, step: 500, default: 35000 },
-      { id: "down", label: "Down Payment (€)", min: 1000, max: 40000, step: 500, default: 7000 },
+      { id: "price", label: "Vehicle Price", min: 10000, max: 80000, step: 500, default: 35000 },
+      { id: "down", label: "Down Payment", min: 1000, max: 40000, step: 500, default: 7000 },
       { id: "rate", label: "APR (%)", min: 2.9, max: 9, step: 0.1, default: 5.2 },
       { id: "months", label: "Months", min: 24, max: 84, step: 12, default: 60 },
     ],
@@ -410,8 +410,8 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "hyundai-loan": {
     inputs: [
-      { id: "price", label: "Vehicle Price (€)", min: 10000, max: 80000, step: 500, default: 38000 },
-      { id: "down", label: "Down Payment (€)", min: 1000, max: 40000, step: 500, default: 7600 },
+      { id: "price", label: "Vehicle Price", min: 10000, max: 80000, step: 500, default: 38000 },
+      { id: "down", label: "Down Payment", min: 1000, max: 40000, step: 500, default: 7600 },
       { id: "rate", label: "Interest Rate (%)", min: 2.5, max: 9, step: 0.1, default: 5.0 },
       { id: "years", label: "Loan Term (Years)", min: 1, max: 7, step: 1, default: 5 },
     ],
@@ -426,8 +426,8 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "peugeot-loan": {
     inputs: [
-      { id: "price", label: "Vehicle Price (€)", min: 12000, max: 90000, step: 500, default: 42000 },
-      { id: "down", label: "Down Payment (€)", min: 1000, max: 45000, step: 500, default: 8400 },
+      { id: "price", label: "Vehicle Price", min: 12000, max: 90000, step: 500, default: 42000 },
+      { id: "down", label: "Down Payment", min: 1000, max: 45000, step: 500, default: 8400 },
       { id: "rate", label: "Rate (%)", min: 2.9, max: 8.5, step: 0.1, default: 5.1 },
       { id: "months", label: "Finance Term (Months)", min: 24, max: 84, step: 6, default: 60 },
     ],
@@ -441,7 +441,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "skoda-loan": {
     inputs: [
-      { id: "price", label: "Vehicle Price (€)", min: 10000, max: 85000, step: 500, default: 36000 },
+      { id: "price", label: "Vehicle Price", min: 10000, max: 85000, step: 500, default: 36000 },
       { id: "deposit", label: "Deposit %", min: 15, max: 50, step: 5, default: 20 },
       { id: "rate", label: "APR (%)", min: 2.8, max: 8, step: 0.1, default: 4.8 },
       { id: "years", label: "Term (Years)", min: 1, max: 7, step: 1, default: 5 },
@@ -458,9 +458,9 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "skoda-pcp": {
     inputs: [
-      { id: "price", label: "Vehicle Price (€)", min: 10000, max: 85000, step: 500, default: 36000 },
-      { id: "deposit", label: "Deposit €", min: 2000, max: 25000, step: 500, default: 5400 },
-      { id: "residual", label: "Residual Value (€)", min: 5000, max: 40000, step: 500, default: 16200 },
+      { id: "price", label: "Vehicle Price", min: 10000, max: 85000, step: 500, default: 36000 },
+      { id: "deposit", label: "Deposit", min: 2000, max: 25000, step: 500, default: 5400 },
+      { id: "residual", label: "Residual Value", min: 5000, max: 40000, step: 500, default: 16200 },
       { id: "rate", label: "APR (%)", min: 2.5, max: 7, step: 0.1, default: 4.2 },
       { id: "months", label: "Months", min: 24, max: 60, step: 6, default: 48 },
     ],
@@ -474,7 +474,7 @@ export const calculatorLogic: Record<string, CalculatorLogic> = {
 
   "volkswagen-pcp": {
     inputs: [
-      { id: "price", label: "Vehicle Price (€)", min: 12000, max: 100000, step: 500, default: 50000 },
+      { id: "price", label: "Vehicle Price", min: 12000, max: 100000, step: 500, default: 50000 },
       { id: "deposit", label: "Initial Payment (€)", min: 2000, max: 35000, step: 500, default: 10000 },
       { id: "gfv", label: "Guaranteed Future Value (€)", min: 5000, max: 50000, step: 1000, default: 20000 },
       { id: "rate", label: "APR (%)", min: 2.2, max: 7.5, step: 0.1, default: 4.5 },

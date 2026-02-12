@@ -7,10 +7,16 @@ import jsPDF from "jspdf";
 import { trackCalculatorUsage } from "../lib/analytics";
 import { getVisualizationConfig } from "../lib/visualizations";
 import { ResultVisualizer } from "../components/ResultVisualizer";
+import CurrencySelector from "../components/CurrencySelector";
+import { useCurrency } from "../hooks/useCurrency";
 import type { VisualizationType } from "../lib/visualizations";
 
 const CalculatorPage = () => {
   const { calculatorId } = useParams<{ calculatorId: string }>();
+
+  const { selectedCountry, format, convertFromBase } = useCurrency();
+
+  const sanitizeLabel = (s: string) => s.replace(/[€£$₹¥¢₩₽₺₴،٫]/g, "").trim();
 
   // GPA editor component (inline) ---------------------------------
   const GpaEditor = ({ values, onChange }: { values: Record<string, any>; onChange: (v: Record<string, any>) => void }) => {
@@ -291,7 +297,7 @@ const CalculatorPage = () => {
 
       // Choose a primary input to record as criteria/input (use first input field)
       const primaryInput = calculator.inputs && calculator.inputs[0];
-      const criteriaName = primaryInput ? primaryInput.label : undefined;
+      const criteriaName = primaryInput ? sanitizeLabel(primaryInput.label) : undefined;
       const inputValue = primaryInput ? Number(values[primaryInput.id]) : undefined;
 
       trackCalculatorUsage(calculatorId!, calcName, firstNumericValue as number, criteriaName, inputValue);
@@ -309,7 +315,13 @@ const CalculatorPage = () => {
     doc.text("Inputs:", 40, y);
     y += 18;
     for (const input of config.inputs) {
-      const label = `${input.label}: ${values[input.id]}${input.suffix ?? ""}`;
+      const raw = values[input.id];
+      let display = String(raw ?? "");
+      // Heuristic: treat as monetary when max is large or label contains money keywords
+      const moneyKeywords = ["amount", "price", "salary", "income", "deposit", "rent", "payment", "pot", "balance", "loan"];
+      const isMoney = (input.max && input.max >= 1000) || moneyKeywords.some((k) => input.label.toLowerCase().includes(k));
+      if (typeof raw === "number" && isMoney) display = format(raw);
+      const label = `${input.label}: ${display}`;
       doc.text(label, 48, y);
       y += 16;
       if (y > 750) {
@@ -342,7 +354,8 @@ const CalculatorPage = () => {
     doc.text("Results:", 40, y);
     y += 18;
     for (const [k, v] of Object.entries(res)) {
-      const line = `${k}: ${v}`;
+      const display = typeof v === "number" ? format(v) : String(v);
+      const line = `${k}: ${display}`;
       doc.text(line, 48, y);
       y += 16;
       if (y > 750) {
@@ -356,10 +369,13 @@ const CalculatorPage = () => {
 
   return (
     <div className="container py-10 max-w-4xl">
-      <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-        <Link to="/" className="hover:text-primary">Home</Link>
-        <ArrowRight className="h-3 w-3" />
-        <span className="font-medium capitalize">{calculatorId}</span>
+      <nav className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Link to="/" className="hover:text-primary">Home</Link>
+          <ArrowRight className="h-3 w-3" />
+          <span className="font-medium capitalize">{calculatorId}</span>
+        </div>
+        <CurrencySelector />
       </nav>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
@@ -379,7 +395,7 @@ const CalculatorPage = () => {
               config.inputs.map((input) => (
                 <div key={input.id}>
                   <div className="flex items-center justify-between mb-2">
-                    <label className="font-medium">{input.label}</label>
+                      <label className="font-medium">{sanitizeLabel(input.label)}</label>
                     <input
                       type="number"
                       min={input.min}
@@ -419,12 +435,25 @@ const CalculatorPage = () => {
           {/* RESULTS */}
           <div ref={containerRef} className="rounded-xl border bg-card p-6 space-y-4">
             <h3 className="font-semibold text-lg">Results</h3>
-            {Object.entries(result).map(([key, val]) => (
-              <div key={key} className="flex justify-between border-b pb-2">
-                <span>{key}</span>
-                <span className="font-semibold text-primary">{String(val)}</span>
-              </div>
-            ))}
+            {Object.entries(result).map(([key, val]) => {
+              const skipCurrency = /%|roi|rate|years|tenor|count|score|grade|letter|gpa|level|status|profile|allocation|plan|recommendation|approach|optimizer|planner|focus/i.test(key);
+              let display = String(val);
+              
+              // Convert numeric currency values from USD to selected country currency
+              if (typeof val === "number" && !skipCurrency) {
+                const convertedValue = convertFromBase(val, selectedCountry.currency.code);
+                display = format(convertedValue);
+              } else if (typeof val === "number") {
+                display = val.toLocaleString();
+              }
+              
+              return (
+                <div key={key} className="flex justify-between border-b pb-2">
+                  <span>{key}</span>
+                  <span className="font-semibold text-primary">{display}</span>
+                </div>
+              );
+            })}
 
             <div className="pt-4 flex flex-col items-end gap-3">
               <button
@@ -463,15 +492,15 @@ const CalculatorPage = () => {
                   .filter(([_, v]) => typeof v === "number")
                   .slice(0, 3)
                   .map(([key, value]) => (
-                    <div key={key} className="rounded-lg bg-slate-50 p-4">
-                      <div className="text-sm text-muted-foreground">{key}</div>
-                      <div className="text-2xl font-bold text-primary mt-1">
-                        {typeof value === "number"
-                          ? (Math.round(value * 100) / 100).toLocaleString()
-                          : value}
+                      <div key={key} className="rounded-lg bg-slate-50 p-4">
+                        <div className="text-sm text-muted-foreground">{key}</div>
+                        <div className="text-2xl font-bold text-primary mt-1">
+                          {typeof value === "number" && !/%|roi|rate|years|tenor/i.test(key)
+                            ? format(value)
+                            : String(value)}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
               </div>
             </div>
 

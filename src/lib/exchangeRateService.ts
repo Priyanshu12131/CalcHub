@@ -14,6 +14,35 @@ type FetchOptions = {
   ttl?: number;
 };
 
+async function fetchFromVercelAPI(base = "USD") {
+  // Use Vercel serverless function to avoid CORS issues
+  // On client side, call relative /api/ endpoint
+  // On server side (should not reach here), use full URL
+  try {
+    if (typeof window !== "undefined") {
+      // Client-side: use relative URL which will be proxied to /api/
+      const url = `/api/exchangeRates?base=${encodeURIComponent(base)}`;
+      console.log(`[fetchFromVercelAPI] Fetching from ${url}`);
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Vercel API error ${res.status}`);
+      const json = await res.json();
+      console.log("[fetchFromVercelAPI] Response:", json);
+      
+      if (!json.rates || Object.keys(json.rates).length === 0) {
+        throw new Error("fetchFromVercelAPI: no rates in response");
+      }
+      
+      return { base: json.base || base, rates: json.rates } as ExchangeRates;
+    } else {
+      // Server-side: should not reach here in this app
+      throw new Error("fetchFromVercelAPI should only run on client");
+    }
+  } catch (err) {
+    console.error("[fetchFromVercelAPI] Failed:", err);
+    throw err;
+  }
+}
+
 async function fetchFromExchangerateHost(base = "USD") {
   const url = `https://api.exchangerate.host/latest?base=${encodeURIComponent(base)}`;
   const res = await fetch(url);
@@ -98,7 +127,7 @@ function writeCache(data: ExchangeRates) {
 }
 
 export async function fetchExchangeRates(opts: FetchOptions = {}): Promise<ExchangeRates> {
-  const { provider = "jsdelivr", apiKey, base = "USD", ttl = DEFAULT_TTL } = opts;
+  const { provider = "vercel", apiKey, base = "USD", ttl = DEFAULT_TTL } = opts;
 
   // return cache when valid
   const cached = readCache();
@@ -106,46 +135,59 @@ export async function fetchExchangeRates(opts: FetchOptions = {}): Promise<Excha
     return cached;
   }
 
-  // attempt provider order
-  try {
-    let data: ExchangeRates | null = null;
-    if (provider === "fixer" && apiKey) {
-      data = await fetchFromFixer(apiKey, base);
-    } else if (provider === "openexchangerates" && apiKey) {
-      data = await fetchFromOpenExchangeRates(apiKey, base);
-    } else if (provider === "exchangerate_host") {
-      data = await fetchFromExchangerateHost(base);
-    } else {
-      // default to jsDelivr (free, no API key required)
-      data = await fetchFromJsdelivr(base);
-    }
-
-    const out: ExchangeRates = { base: data.base || base, rates: data.rates || {}, fetchedAt: Date.now() };
-    // Ensure base currency is always in rates (required for proper conversion)
-    if (!out.rates[out.base]) {
-      out.rates[out.base] = 1;
-    }
-    // Debug log
-    console.log(`[ExchangeRates] Fetched rates for base ${out.base}:`, Object.keys(out.rates).length, 'currencies');
-    console.log(`[ExchangeRates] Has INR:`, 'INR' in out.rates, out.rates['INR']);
-    writeCache(out);
-    return out;
-  } catch (err) {
-    console.error('[ExchangeRates] Error fetching:', err);
-    // fallback to cached even if stale
-    try {
-      const cached = readCache();
-      if (cached) {
-        console.log('[ExchangeRates] Using stale cache');
-        return cached;
-      }
-    } catch (e2) {
-      // ignore
-    }
-    // as last resort return identity rates for base
-    console.log('[ExchangeRates] Using fallback identity rates');
-    return { base: base.toUpperCase(), rates: { [base.toUpperCase()]: 1 }, fetchedAt: Date.now() };
+  // attempt provider order with fallbacks
+  const providers = [];
+  
+  if (provider === "vercel" || provider === undefined) {
+    providers.push(() => fetchFromVercelAPI(base));
   }
+  if (provider === "fixer" || !provider) {
+    if (apiKey) providers.push(() => fetchFromFixer(apiKey, base));
+  }
+  if (provider === "openexchangerates" || !provider) {
+    if (apiKey) providers.push(() => fetchFromOpenExchangeRates(apiKey, base));
+  }
+  if (provider === "exchangerate_host" || !provider) {
+    providers.push(() => fetchFromExchangerateHost(base));
+  }
+  if (provider === "jsdelivr" || !provider) {
+    providers.push(() => fetchFromJsdelivr(base));
+  }
+
+  for (const fetchFn of providers) {
+    try {
+      const data = await fetchFn();
+      const out: ExchangeRates = { base: data.base || base, rates: data.rates || {}, fetchedAt: Date.now() };
+      // Ensure base currency is always in rates (required for proper conversion)
+      if (!out.rates[out.base]) {
+        out.rates[out.base] = 1;
+      }
+      // Debug log
+      console.log(`[ExchangeRates] Fetched rates for base ${out.base}:`, Object.keys(out.rates).length, 'currencies');
+      console.log(`[ExchangeRates] Has INR:`, 'INR' in out.rates, out.rates['INR']);
+      writeCache(out);
+      return out;
+    } catch (err) {
+      console.error('[ExchangeRates] Provider failed:', err);
+      continue; // Try next provider
+    }
+  }
+
+  // All providers failed, try cache
+  console.error('[ExchangeRates] All providers failed');
+  try {
+    const cached = readCache();
+    if (cached) {
+      console.log('[ExchangeRates] Using stale cache');
+      return cached;
+    }
+  } catch (e2) {
+    // ignore
+  }
+
+  // as last resort return identity rates for base
+  console.log('[ExchangeRates] Using fallback identity rates');
+  return { base: base.toUpperCase(), rates: { [base.toUpperCase()]: 1 }, fetchedAt: Date.now() };
 }
 
 export function clearExchangeCache() {

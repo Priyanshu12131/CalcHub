@@ -2,11 +2,19 @@ import type { ICountry } from "./countries";
 
 export function formatCurrency(value: number, currencyCode: string, locale: string) {
   try {
-    const formatted = new Intl.NumberFormat(locale, { style: "currency", currency: currencyCode }).format(value);
-    // Normalize commas to dots for decimal separator
-    return formatted.replace(/,/g, '.');
+    // Format with 2 decimal places and no thousand separators
+    const formatter = new Intl.NumberFormat(locale, { 
+      style: "currency", 
+      currency: currencyCode,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+      useGrouping: false // This removes thousand separators
+    });
+    
+    return formatter.format(value);
   } catch (e) {
-    return `${currencyCode} ${value.toLocaleString()}`;
+    // Fallback: simple formatting with 2 decimal places
+    return `${currencyCode} ${value.toFixed(2)}`;
   }
 }
 
